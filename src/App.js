@@ -31,7 +31,7 @@ class App extends Component {
                 </nav>
             </div>
             <div className="content">
-                <Route path="/" component={Home} exact="true"/>
+                <Route path="/" component={Home} exact='1' />
                 <Route path="/about" component={About}/>
                 <Route path="/projects" component={Projects}/>
                 <Route path="/notebook" component={Notebook}/>

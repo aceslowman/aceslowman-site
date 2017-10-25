@@ -1,5 +1,11 @@
+.content {
+    color:white;
+}
+
 h1{
-    color:black;
+    color:white;
+    margin-top:0;
+    padding-top:30px;
 }
 
 nav ul {
@@ -10,6 +16,11 @@ nav ul li {
     list-style:none;
     display:inline;
     padding:0px 20px;
+    color:white;
+}
+
+nav ul li a {
+    color:white;
 }
 
 .top {
