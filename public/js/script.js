@@ -1,6 +1,6 @@
 var scene,
 bufferScene,
-camera,
+perspectiveCamera,
 orthoCamera,
 renderer,
 clock;
@@ -13,16 +13,21 @@ var sourceTexture, textureA, textureB;
 // OBJECTS
 var cube, quad;
 
+var width, height;
+
 init();
 animate();
 
 // ============================================================================
 function init(){
+    width = window.innerWidth;
+    height = window.innerHeight;
+
     setupCameras();
-    setupBuffer();
+    setupSourceBuffer();
     setupMainScene();
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ antialias: true });
     document.body.appendChild( renderer.domElement );
 
     onWindowResize();
@@ -32,18 +37,23 @@ function init(){
 }
 
 // ============================================================================
-function setupBuffer(){
+function setupSourceBuffer(){
     sourceScene = new THREE.Scene();
-    sourceTexture = new THREE.WebGLRenderTarget( 600, 600 );
+    sourceTexture = new THREE.WebGLRenderTarget(
+        width,
+        height,
+        { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter}
+    );
 
-    var cubeGeometry = new THREE.BoxGeometry( 1.5, 1.5, 1.5 );
-    var cubeMaterial = new THREE.MeshBasicMaterial( { color: "blue" } );
+    var cubeGeometry = new THREE.BoxGeometry( 1., 1., 1. );
+    var cubeMaterial = new THREE.MeshBasicMaterial( { color: "white" } );
 
     cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
+    // don't worry much about this one
     var sourceQuadMaterial = new THREE.MeshBasicMaterial( { color:"black" } );
     var sourceQuad = new THREE.Mesh(
-        new THREE.PlaneBufferGeometry( 1.5, 1.5, 1.5 ),
+        new THREE.PlaneBufferGeometry( width, height ),
         sourceQuadMaterial
     );
 
@@ -64,10 +74,15 @@ function setupMainScene(){
     scene = new THREE.Scene();
     bufferScene = new THREE.Scene();
 
-    textureA = new THREE.WebGLRenderTarget( 600, 600,
+    textureA = new THREE.WebGLRenderTarget(
+        width,
+        height,
         { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter}
     );
-    textureB = new THREE.WebGLRenderTarget( 600, 600,
+
+    textureB = new THREE.WebGLRenderTarget(
+        width,
+        height,
         { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter}
     );
 
@@ -82,22 +97,45 @@ function setupMainScene(){
     	fragmentShader: document.getElementById( 'fragmentShader' ).textContent
     } );
 
-    var plane = new THREE.PlaneBufferGeometry( 2., 2. );
+    /*
+
+    I need to be able to dynamically adjust this width to match the full size
+    of the final window
+
+    */
+    var plane = new THREE.PlaneBufferGeometry( 2., 2.);
+    var otherMat = new THREE.MeshBasicMaterial({ color: "yellow" });
     var bufferObject = new THREE.Mesh( plane, material );
     bufferScene.add(bufferObject);
 
-    var finalPlane = new THREE.PlaneBufferGeometry( 5.0, 5.0 );
-    finalMaterial =  new THREE.MeshBasicMaterial({ map: textureB.texture });
-    quad = new THREE.Mesh( finalPlane, finalMaterial );
-    // quad.position.z = 2;
+    //got it here
+    // finalMaterial = new THREE.MeshBasicMaterial({ map: textureB.texture });
+    finalMaterial = new THREE.MeshBasicMaterial({ color: 'red' });
+    quad = new THREE.Mesh( plane, finalMaterial );
 
     scene.add( quad );
 }
 
 // ============================================================================
 function setupCameras(){
-    camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-    camera.position.z = 4;
+    orthoCamera = new THREE.OrthographicCamera(
+        width / - 2,
+        width / 2,
+        height / 2,
+        height / -2,
+        1,
+        1000
+    );
+
+    perspectiveCamera = new THREE.PerspectiveCamera(
+        45,
+        width / height,
+        1,
+        1000
+    );
+
+    orthoCamera.position.z = 2;
+    perspectiveCamera.position.z = 5;
 }
 
 // ============================================================================
@@ -108,25 +146,33 @@ function animate() {
 
 // ============================================================================
 function render() {
-    //render the source to bufferTexture (tied to tex1)
-    renderer.render( sourceScene, camera, sourceTexture );
+    renderer.render( sourceScene, perspectiveCamera, sourceTexture );
 
-    //render the shader buffer
-    renderer.render( bufferScene, camera, textureB, true );
+    /*
+
+        bufferScene should be orthographic. It's just an intermediary buffer
+        there just must be a difference between orthographic and perspective
+        COORDINATES, and I think that is the key here.
+
+        Lets play around with uv coordinates in the shader...
+
+    */
+    renderer.render( bufferScene, orthoCamera, textureB, true );
 
     // ping pong
     var temp = textureA;
-    textureA = textureB; //this is important, this is the actual swap
+    textureA = textureB;
     textureB = temp;
 
-    //display the final image.
     quad.material.map = textureB.texture;
     uniforms.tex0.value = textureA.texture;
 
-    renderer.render( scene, camera );
+    renderer.render( bufferScene, orthoCamera );
     updateCube();
 }
 
 function onWindowResize() {
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    renderer.setSize(width, height);
 }
