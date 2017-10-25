@@ -41,12 +41,12 @@ function setupSourceBuffer(){
     sourceScene = new THREE.Scene();
     sourceTexture = new THREE.WebGLRenderTarget( width, height );
 
-    var cubeGeometry = new THREE.BoxGeometry( 1., 1., 1. );
+    var cubeGeometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
     var cubeMaterial = new THREE.MeshBasicMaterial( { color: "white" } );
 
     cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
-    var circleGeometry = new THREE.CircleGeometry(0.6,32);
+    var circleGeometry = new THREE.CircleGeometry(0.2,32);
     var circle = new THREE.Mesh(circleGeometry, cubeMaterial);
 
     var sourceQuadMaterial = new THREE.MeshBasicMaterial( { color:"black" } );
@@ -98,7 +98,7 @@ function setupMainScene(){
 
     sharpenUniforms = {
         tex0: { value: textureB.texture },
-        width: 1.0
+        width: 0.002
     }
 
     sharpenShaderMaterial = new THREE.ShaderMaterial( {
