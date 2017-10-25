@@ -46,10 +46,12 @@ function setupSourceBuffer(){
 
     cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
-    var circleGeometry = new THREE.CircleGeometry(0.2,32);
+    var circleGeometry = new THREE.CircleGeometry(0.6,32);
+    var circleGeometry_sm = new THREE.CircleGeometry(0.59,32);
     var circle = new THREE.Mesh(circleGeometry, cubeMaterial);
 
     var sourceQuadMaterial = new THREE.MeshBasicMaterial( { color:"black" } );
+    var circle_sm = new THREE.Mesh(circleGeometry_sm, sourceQuadMaterial);
     var sourceQuad = new THREE.Mesh(
         new THREE.PlaneBufferGeometry( width, height ),
         sourceQuadMaterial
@@ -58,7 +60,8 @@ function setupSourceBuffer(){
     sourceQuad.position.z = -1;
 
     sourceScene.add( sourceQuad );
-    sourceScene.add( cube );
+    sourceScene.add( circle );
+    sourceScene.add( circle_sm );
 }
 
 // ============================================================================
