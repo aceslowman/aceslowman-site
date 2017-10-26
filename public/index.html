@@ -42,10 +42,10 @@
         varying vec2 texcoord20;
         varying vec2 texcoord22;
 
+        uniform float width;
+
         void main()
         {
-            float width = 0.008;
-
         	gl_Position = vec4( position, 1.0 );
 
         	texcoord = uv;
@@ -96,21 +96,20 @@
         uniform sampler2D tex1;
         varying vec2 vUv;
 
-        void main(){
+        uniform float feedback;
+        uniform float scale;
 
-            //move to uniforms
-            //===================
-            float feedback = 0.99;
-            float scale = 0.992;
-            //===================
+        uniform vec2 vPoint;
+
+        void main(){
 
             vec4 color;
 
             vec2 uv = vUv;
             vec2 uv2 = uv;
 
-		    uv2 -= 0.5;
-	        uv2 += 0.5/scale;
+		    uv2 -= vPoint;
+	        uv2 += vPoint/scale;
 			uv2 *= scale;
 
             vec4 fb = vec4(0.0);
@@ -143,8 +142,8 @@
         varying vec2 texdim0;
         varying vec2 vUv;
 
-        // uniform float barrelPower;
-        // uniform float zoom;
+        uniform float barrelPower;
+        uniform float zoom;
 
         const int num_iter = 12;
         const float reci_num_iter_f = 1.0 / float(num_iter);
@@ -179,9 +178,6 @@
 
         void main()
         {
-            float barrelPower = 0.7;
-            float zoom = 0.9;
-
             vec2 uv = vUv;
 
             uv -= 0.5;

@@ -4,7 +4,7 @@ class Notebook extends Component {
     render(){
         return (
             <div>
-                <p>We are notebook</p>
+                <p></p>
             </div>
         )
     }

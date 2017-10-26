@@ -1,21 +1,18 @@
-var scene,
-bufferScene,
-perspectiveCamera,
-orthoCamera,
-renderer,
-clock;
+var scene, feedbackScene, sharpenScene, barrelScene;
+var perspectiveCamera, orthoCamera;
+var renderer;
 
-var material, finalMaterial;
+var finalMaterial;
 var sharpenUniforms, feedbackUniforms, barrelUniforms;
 
-var sourceTexture;
-
-var textureA, textureB, textureC, textureD;
+var sourceTexture, textureA, textureB, textureC, textureD;
 
 // OBJECTS
 var cube, quad;
 
 var width, height;
+
+var mouse =  new THREE.Vector2();
 
 init();
 animate();
@@ -34,27 +31,9 @@ function init(){
 
     onWindowResize();
     window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener( 'mousemove', onMouseMove, false );
 
     renderer.setClearColor( "black" );
-}
-
-function createText(text){
-    var loader = new THREE.FontLoader();
-    loader.load( './fonts/helvetiker_regular.typeface.json', function ( font ) {
-        console.log(font);
-    	var geometry = new THREE.TextGeometry( text, {
-    		font: font,
-    		size: 100,
-    		height: 5,
-    		curveSegments: 12,
-    		bevelEnabled: true,
-    		bevelThickness: 10,
-    		bevelSize: 8,
-    		bevelSegments: 5
-    	} );
-
-        return geometry;
-    } );
 }
 
 // ============================================================================
@@ -80,11 +59,6 @@ function setupSourceBuffer(){
 
     sourceQuad.position.z = -1;
 
-    var textGeometry = createText("aceslowman");
-    var textMesh = new THREE.Mesh(textGeometry, cubeMaterial);
-    textMesh.position.z = 2;
-
-    sourceScene.add( textMesh );
     sourceScene.add( sourceQuad );
     sourceScene.add( circle );
     sourceScene.add( circle_sm );
@@ -96,25 +70,26 @@ function updateCube(){
     cube.rotation.x += 0.01;
 }
 
-// ============================================================================
-function setupMainScene(){
-    scene = new THREE.Scene();
-    bufferScene = new THREE.Scene();
-    bufferScene2 = new THREE.Scene();
-    bufferScene3 = new THREE.Scene();
+function onMouseMove(event){
+    mouse.x = (event.clientX / window.innerWidth);
+    mouse.y = (event.clientY / window.innerHeight);
 
-    textureA = new THREE.WebGLRenderTarget( width, height );
-    textureB = new THREE.WebGLRenderTarget( width, height );
-    textureC = new THREE.WebGLRenderTarget( width, height );
-    textureD = new THREE.WebGLRenderTarget( width, height );
+    console.log(mouse);
+}
 
-    /*
-        FEEDBACK
-    */
+function updateUniforms(){
+    feedbackUniforms.vPoint.value = [mouse.x,mouse.y];
+}
+
+function feedback(){
+    feedbackScene = new THREE.Scene();
 
     feedbackUniforms = {
         tex0: { value: textureA.texture },
-        tex1: { value: sourceTexture.texture }
+        tex1: { value: sourceTexture.texture },
+        feedback: { value: 0.99 },
+        scale: { value: 0.992 },
+        vPoint: { value: [0.5,0.5] }
     };
 
     feedbackShaderMaterial = new THREE.ShaderMaterial( {
@@ -125,15 +100,15 @@ function setupMainScene(){
 
     var plane1 = new THREE.PlaneBufferGeometry( 2., 2.);
     var bufferObject = new THREE.Mesh( plane1, feedbackShaderMaterial );
-    bufferScene.add(bufferObject);
+    feedbackScene.add(bufferObject);
+}
 
-    /*
-        SHARPEN
-    */
+function sharpen(){
+    sharpenScene = new THREE.Scene();
 
     sharpenUniforms = {
         tex0: { value: textureB.texture },
-        width: 0.002
+        width: { value: 0.008 }
     }
 
     sharpenShaderMaterial = new THREE.ShaderMaterial( {
@@ -144,16 +119,16 @@ function setupMainScene(){
 
     var plane2 = new THREE.PlaneBufferGeometry( 2., 2.);
     var sharpenObject = new THREE.Mesh( plane2, sharpenShaderMaterial );
-    bufferScene2.add(sharpenObject);
+    sharpenScene.add(sharpenObject);
+}
 
-    /*
-
-        BARREL BLUR CHROMA
-
-    */
+function barrelBlurChroma(){
+    barrelScene = new THREE.Scene();
 
     barrelUniforms = {
-        tex0: { value: textureC.texture }
+        tex0: { value: textureC.texture },
+        barrelPower: { value: 0.3 },
+        zoom: { value: 0.9 }
     }
 
     barrelShaderMaterial = new THREE.ShaderMaterial( {
@@ -164,11 +139,23 @@ function setupMainScene(){
 
     var plane3 = new THREE.PlaneBufferGeometry( 2., 2.);
     var barrelObject = new THREE.Mesh( plane3, barrelShaderMaterial );
-    bufferScene3.add(barrelObject);
+    barrelScene.add(barrelObject);
+}
 
-    /*
-        FINAL DISPLAY SCENE
-    */
+// ============================================================================
+function setupMainScene(){
+    scene = new THREE.Scene();
+
+    textureA = new THREE.WebGLRenderTarget( width, height );
+    textureB = new THREE.WebGLRenderTarget( width, height );
+    textureC = new THREE.WebGLRenderTarget( width, height );
+    textureD = new THREE.WebGLRenderTarget( width, height );
+
+    feedback();
+
+    sharpen();
+
+    barrelBlurChroma();
 
     //got it here
     var plane3 = new THREE.PlaneBufferGeometry( width, height );
@@ -203,20 +190,23 @@ function setupCameras(){
 function animate() {
     requestAnimationFrame( animate );
     render();
+
+    updateCube();
+    updateUniforms();
 }
 
 // ============================================================================
 function render() {
     renderer.render( sourceScene, perspectiveCamera, sourceTexture );
-    renderer.render( bufferScene, orthoCamera, textureB );
-    renderer.render( bufferScene2, orthoCamera, textureC );
+    renderer.render( feedbackScene, orthoCamera, textureB );
+    renderer.render( sharpenScene, orthoCamera, textureC );
 
 
     var temp = textureA;
     textureA = textureC;
     textureC = temp;
 
-    renderer.render( bufferScene3, orthoCamera, textureD );
+    renderer.render( barrelScene, orthoCamera, textureD );
 
     quad.material.map = textureD.texture;
 
@@ -225,7 +215,6 @@ function render() {
     barrelUniforms.tex0.value = textureC.texture;
 
     renderer.render( scene, orthoCamera );
-    updateCube();
 }
 
 function onWindowResize() {
