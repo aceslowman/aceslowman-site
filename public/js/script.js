@@ -130,8 +130,8 @@ $(function(){
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
 
-        window.addEventListener( 'ontouchmove', onMouseMove, false );
-        window.addEventListener( 'ontouchstart', onMouseDown, false );        
+        window.addEventListener( 'ontouchmove', onTouchMove, false );
+        window.addEventListener( 'ontouchstart', onTouchStart, false );
     }
 
     // ============================================================================
@@ -332,4 +332,36 @@ $(function(){
             }
         }
     }
+
+    function onTouchMove(event){
+        mouse.x = (event.pageX / window.innerWidth);
+        mouse.y = (event.pageY / window.innerHeight);
+
+        feedbackUniforms.vPoint.value = [mouse.x,mouse.y];
+    }
+
+    function onTouchStart(event){
+        // console.log(event.clientX);
+
+        if(width < 500){
+            for(var click in clickbox_sm){
+                console.log(clickbox_sm[click]);
+                if(event.pageX > clickbox_sm[click].x1 && event.pageY > clickbox_sm[click].y1){
+                    if(event.pageX < clickbox_sm[click].x2 && event.pageY < clickbox_sm[click].y2){
+                        window.location.href = clickbox_sm[click].target;
+                    }
+                }
+            }
+        }else{
+            for(var click in clickbox_lg){
+                console.log(clickbox_lg[click]);
+                if(event.pageX > clickbox_lg[click].x1 && event.pageY > clickbox_lg[click].y1){
+                    if(event.pageX < clickbox_lg[click].x2 && event.pageY < clickbox_lg[click].y2){
+                        window.location.href = clickbox_lg[click].target;
+                    }
+                }
+            }
+        }
+    }
+
 });
