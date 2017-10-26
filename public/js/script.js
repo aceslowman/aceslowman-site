@@ -129,6 +129,9 @@ $(function(){
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
+
+        window.addEventListener( 'ontouchmove', onMouseMove, false );
+        window.addEventListener( 'ontouchstart', onMouseDown, false );        
     }
 
     // ============================================================================
