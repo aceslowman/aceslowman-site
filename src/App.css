@@ -3,20 +3,21 @@
 }
 
 h1 {
-    display:inline-block;
-    color:white;
-    padding:0;
-    margin:0;
-    margin-top:15px;
-    background-color:black;
+    visibility: hidden;
 }
 
 h2 {
+    display:inline-block;
     background-color:black;
 }
 
 header {
     margin: 0 auto;
+}
+
+header a {
+    display:block;
+    height:130px;
 }
 
 nav ul {
@@ -50,4 +51,17 @@ img {
 
 p {
     background-color: black;
+}
+
+.post {
+    text-align:center;
+}
+
+.post img{
+    margin:0 auto;
+}
+
+.post p {
+    padding:15px;
+    text-align:left;
 }
