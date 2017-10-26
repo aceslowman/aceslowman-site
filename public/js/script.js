@@ -16,7 +16,7 @@ $(function(){
 
     var mouse =  new THREE.Vector2();
 
-    var clickbox = [
+    var clickbox_lg = [
         {
             x1: window.innerWidth/2.0 - 165,
             y1: (window.innerHeight/3) * 2,
@@ -40,6 +40,30 @@ $(function(){
         }
     ];
 
+    var clickbox_sm = [
+        {
+            x1: window.innerWidth/2.0 - (165/2),
+            y1: (window.innerHeight/3) * 2,
+            x2: (window.innerWidth/2.0 - (165/2)) + 25,
+            y2: ((window.innerHeight/3) * 2) + 25,
+            target: "https://www.facebook.com/aceslowman/"
+        },
+        {
+            x1: window.innerWidth/2.0 - (40/2),
+            y1: (window.innerHeight/3) * 2,
+            x2: (window.innerWidth/2.0 - (40/2)) + 25,
+            y2: ((window.innerHeight/3) * 2) + 25,
+            target: "https://twitter.com/aceslowman"
+        },
+        {
+            x1: window.innerWidth/2.0 + (85/2),
+            y1: (window.innerHeight/3) * 2,
+            x2: (window.innerWidth/2.0 + (85/2)) + 25,
+            y2: ((window.innerHeight/3) * 2) + 25,
+            target: "https://www.instagram.com/aceslowman/"
+        }
+    ];
+
     init();
     animate();
 
@@ -49,7 +73,13 @@ $(function(){
         textCanvas.height = window.innerHeight;
         var textCtx = textCanvas.getContext("2d");
         textCtx.textAlign = 'center';
-        textCtx.font = "80px Helvetica";
+
+        if(width < 500){
+            textCtx.font = "40px Helvetica";
+        }else{
+            textCtx.font = "80px Helvetica";
+        }
+
 
         textCtx.beginPath();
         textCtx.rect(0, 0, window.innerWidth, window.innerHeight);
@@ -60,9 +90,15 @@ $(function(){
         var img2 = document.getElementById("twitter_icon");
         var img3 = document.getElementById("ig_icon");
 
-        textCtx.drawImage(img1, window.innerWidth/2.0 - 165, (window.innerHeight/3) * 2 );
-        textCtx.drawImage(img2, window.innerWidth/2.0 - 40, (window.innerHeight/3) * 2 );
-        textCtx.drawImage(img3, window.innerWidth/2.0 + 85, (window.innerHeight/3) * 2 );
+        if( width < 500 ){
+            textCtx.drawImage(img1, (window.innerWidth/2.0) - (165/2), ((window.innerHeight/3) * 2), 25, 25 );
+            textCtx.drawImage(img2, (window.innerWidth/2.0) - (40/2), ((window.innerHeight/3) * 2), 25, 25 );
+            textCtx.drawImage(img3, (window.innerWidth/2.0) + (85/2), ((window.innerHeight/3) * 2), 25, 25 );
+        }else{
+            textCtx.drawImage(img1, window.innerWidth/2.0 - 165, (window.innerHeight/3) * 2 );
+            textCtx.drawImage(img2, window.innerWidth/2.0 - 40, (window.innerHeight/3) * 2 );
+            textCtx.drawImage(img3, window.innerWidth/2.0 + 85, (window.innerHeight/3) * 2 );
+        }
 
         textCtx.lineWidth = 1;
         textCtx.fillStyle = 'white';
@@ -80,10 +116,7 @@ $(function(){
         renderer = new THREE.WebGLRenderer({ antialias: true });
         document.body.appendChild( renderer.domElement );
 
-        onWindowResize();
-        window.addEventListener( 'resize', onWindowResize, false );
-        window.addEventListener( 'mousemove', onMouseMove, false );
-        window.addEventListener( 'mousedown', onMouseDown, false );
+
 
         renderer.setClearColor( "black" );
 
@@ -91,6 +124,11 @@ $(function(){
         setupSourceBuffer();
         setupText("aceslowman");
         setupMainScene();
+
+        onWindowResize();
+        window.addEventListener( 'resize', onWindowResize, false );
+        window.addEventListener( 'mousemove', onMouseMove, false );
+        window.addEventListener( 'mousedown', onMouseDown, false );
     }
 
     // ============================================================================
@@ -250,6 +288,13 @@ $(function(){
         width = window.innerWidth;
         height = window.innerHeight;
         renderer.setSize(width, height);
+
+        //update textures?
+
+
+        perspectiveCamera.aspect = width / height;
+        perspectiveCamera.updateProjectionMatrix();
+        orthoCamera.updateProjectionMatrix();
     }
 
     // ============================================================================
@@ -264,11 +309,22 @@ $(function(){
     function onMouseDown(event){
         // console.log(event.clientX);
 
-        for(var click in clickbox){
-            console.log(clickbox[click]);
-            if(event.clientX > clickbox[click].x1 && event.clientY > clickbox[click].y1){
-                if(event.clientX < clickbox[click].x2 && event.clientY < clickbox[click].y2){
-                    window.location.href = clickbox[click].target;
+        if(width < 500){
+            for(var click in clickbox_sm){
+                console.log(clickbox_sm[click]);
+                if(event.clientX > clickbox_sm[click].x1 && event.clientY > clickbox_sm[click].y1){
+                    if(event.clientX < clickbox_sm[click].x2 && event.clientY < clickbox_sm[click].y2){
+                        window.location.href = clickbox_sm[click].target;
+                    }
+                }
+            }
+        }else{
+            for(var click in clickbox_lg){
+                console.log(clickbox_lg[click]);
+                if(event.clientX > clickbox_lg[click].x1 && event.clientY > clickbox_lg[click].y1){
+                    if(event.clientX < clickbox_lg[click].x2 && event.clientY < clickbox_lg[click].y2){
+                        window.location.href = clickbox_lg[click].target;
+                    }
                 }
             }
         }
