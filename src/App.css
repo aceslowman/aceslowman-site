@@ -1,3 +1,7 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 .content {
     color:white;
 }
@@ -18,6 +22,10 @@ header {
 header a {
     display:block;
     height:130px;
+}
+
+nav {
+    visibility: hidden;
 }
 
 nav ul {
@@ -42,7 +50,7 @@ nav ul li a {
 
 .content{
     margin: 0 auto;
-    width: 80%;
+    width: 60%;
 }
 
 img {
