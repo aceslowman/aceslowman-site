@@ -6,9 +6,11 @@ renderer,
 clock;
 
 var material, finalMaterial;
-var sharpenUniforms, feedbackUniforms;
+var sharpenUniforms, feedbackUniforms, barrelUniforms;
 
-var sourceTexture, textureA, textureB;
+var sourceTexture;
+
+var textureA, textureB, textureC, textureD;
 
 // OBJECTS
 var cube, quad;
@@ -36,6 +38,25 @@ function init(){
     renderer.setClearColor( "black" );
 }
 
+function createText(text){
+    var loader = new THREE.FontLoader();
+    loader.load( './fonts/helvetiker_regular.typeface.json', function ( font ) {
+        console.log(font);
+    	var geometry = new THREE.TextGeometry( text, {
+    		font: font,
+    		size: 100,
+    		height: 5,
+    		curveSegments: 12,
+    		bevelEnabled: true,
+    		bevelThickness: 10,
+    		bevelSize: 8,
+    		bevelSegments: 5
+    	} );
+
+        return geometry;
+    } );
+}
+
 // ============================================================================
 function setupSourceBuffer(){
     sourceScene = new THREE.Scene();
@@ -46,8 +67,8 @@ function setupSourceBuffer(){
 
     cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
 
-    var circleGeometry = new THREE.CircleGeometry(0.6,32);
-    var circleGeometry_sm = new THREE.CircleGeometry(0.59,32);
+    var circleGeometry = new THREE.CircleGeometry(0.4,32);
+    var circleGeometry_sm = new THREE.CircleGeometry(0.395,32);
     var circle = new THREE.Mesh(circleGeometry, cubeMaterial);
 
     var sourceQuadMaterial = new THREE.MeshBasicMaterial( { color:"black" } );
@@ -59,6 +80,11 @@ function setupSourceBuffer(){
 
     sourceQuad.position.z = -1;
 
+    var textGeometry = createText("aceslowman");
+    var textMesh = new THREE.Mesh(textGeometry, cubeMaterial);
+    textMesh.position.z = 2;
+
+    sourceScene.add( textMesh );
     sourceScene.add( sourceQuad );
     sourceScene.add( circle );
     sourceScene.add( circle_sm );
@@ -75,10 +101,12 @@ function setupMainScene(){
     scene = new THREE.Scene();
     bufferScene = new THREE.Scene();
     bufferScene2 = new THREE.Scene();
+    bufferScene3 = new THREE.Scene();
 
     textureA = new THREE.WebGLRenderTarget( width, height );
     textureB = new THREE.WebGLRenderTarget( width, height );
     textureC = new THREE.WebGLRenderTarget( width, height );
+    textureD = new THREE.WebGLRenderTarget( width, height );
 
     /*
         FEEDBACK
@@ -95,6 +123,10 @@ function setupMainScene(){
     	fragmentShader: document.getElementById( 'feedback_frag' ).textContent
     } );
 
+    var plane1 = new THREE.PlaneBufferGeometry( 2., 2.);
+    var bufferObject = new THREE.Mesh( plane1, feedbackShaderMaterial );
+    bufferScene.add(bufferObject);
+
     /*
         SHARPEN
     */
@@ -110,13 +142,29 @@ function setupMainScene(){
         fragmentShader: document.getElementById( 'sharpen_frag' ).textContent
     } );
 
-    var plane1 = new THREE.PlaneBufferGeometry( 2., 2.);
-    var bufferObject = new THREE.Mesh( plane1, feedbackShaderMaterial );
-    bufferScene.add(bufferObject);
-
     var plane2 = new THREE.PlaneBufferGeometry( 2., 2.);
     var sharpenObject = new THREE.Mesh( plane2, sharpenShaderMaterial );
     bufferScene2.add(sharpenObject);
+
+    /*
+
+        BARREL BLUR CHROMA
+
+    */
+
+    barrelUniforms = {
+        tex0: { value: textureC.texture }
+    }
+
+    barrelShaderMaterial = new THREE.ShaderMaterial( {
+        uniforms: barrelUniforms,
+        vertexShader: document.getElementById( 'barrelChroma_vert' ).textContent,
+        fragmentShader: document.getElementById( 'barrelChroma_frag' ).textContent
+    } );
+
+    var plane3 = new THREE.PlaneBufferGeometry( 2., 2.);
+    var barrelObject = new THREE.Mesh( plane3, barrelShaderMaterial );
+    bufferScene3.add(barrelObject);
 
     /*
         FINAL DISPLAY SCENE
@@ -161,22 +209,20 @@ function animate() {
 function render() {
     renderer.render( sourceScene, perspectiveCamera, sourceTexture );
     renderer.render( bufferScene, orthoCamera, textureB );
-
-    /*
-
-        Why is a cube being drawn OVER the top of the bufferScene2 render?
-
-    */
-
     renderer.render( bufferScene2, orthoCamera, textureC );
+
 
     var temp = textureA;
     textureA = textureC;
     textureC = temp;
 
-    quad.material.map = textureC.texture;
+    renderer.render( bufferScene3, orthoCamera, textureD );
+
+    quad.material.map = textureD.texture;
+
     feedbackUniforms.tex0.value = textureA.texture;
     sharpenUniforms.tex0.value = textureB.texture;
+    barrelUniforms.tex0.value = textureC.texture;
 
     renderer.render( scene, orthoCamera );
     updateCube();
