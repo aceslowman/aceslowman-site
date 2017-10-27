@@ -7,60 +7,38 @@ $(function(){
     var finalMaterial;
     var sharpenUniforms, feedbackUniforms, barrelUniforms;
 
-    var sourceTexture, textTexture, textureA, textureB, textureC, textureD;
-
-    // OBJECTS
-    var cube, quad;
+    var textTexture, textureA, textureB, textureC, textureD;
 
     var width, height;
 
     var mouse =  new THREE.Vector2();
 
-    var clickbox_lg = [
+    var clickbox = [
         {
-            x1: window.innerWidth/2.0 - 165,
-            y1: (window.innerHeight/3) * 2,
-            x2: (window.innerWidth/2.0 - 165) + 50,
-            y2: ((window.innerHeight/3) * 2) + 50,
+            x1: window.innerWidth/2.0 - 155,
+            y1: (window.innerHeight/3.5) * 2,
+            x2: (window.innerWidth/2.0 - 155) + 50,
+            y2: ((window.innerHeight/3.5) * 2) + 50,
             target: "https://www.facebook.com/aceslowman/"
         },
         {
             x1: window.innerWidth/2.0 - 40,
-            y1: (window.innerHeight/3) * 2,
+            y1: (window.innerHeight/3.5) * 2,
             x2: (window.innerWidth/2.0 - 40) + 50,
-            y2: ((window.innerHeight/3) * 2) + 50,
+            y2: ((window.innerHeight/3.5) * 2) + 50,
             target: "https://twitter.com/aceslowman"
         },
         {
-            x1: window.innerWidth/2.0 + 85,
-            y1: (window.innerHeight/3) * 2,
-            x2: (window.innerWidth/2.0 + 85) + 50,
-            y2: ((window.innerHeight/3) * 2) + 50,
+            x1: window.innerWidth/2.0 + 95,
+            y1: (window.innerHeight/3.5) * 2,
+            x2: (window.innerWidth/2.0 + 95) + 50,
+            y2: ((window.innerHeight/3.5) * 2) + 50,
             target: "https://www.instagram.com/aceslowman/"
-        }
-    ];
-
-    var clickbox_sm = [
-        {
-            x1: window.innerWidth/2.0 - (165/2),
-            y1: (window.innerHeight/3) * 2,
-            x2: (window.innerWidth/2.0 - (165/2)) + 25,
-            y2: ((window.innerHeight/3) * 2) + 25,
-            target: "https://www.facebook.com/aceslowman/"
         },
         {
-            x1: window.innerWidth/2.0 - (40/2),
-            y1: (window.innerHeight/3) * 2,
-            x2: (window.innerWidth/2.0 - (40/2)) + 25,
-            y2: ((window.innerHeight/3) * 2) + 25,
-            target: "https://twitter.com/aceslowman"
-        },
-        {
-            x1: window.innerWidth/2.0 + (85/2),
-            y1: (window.innerHeight/3) * 2,
-            x2: (window.innerWidth/2.0 + (85/2)) + 25,
-            y2: ((window.innerHeight/3) * 2) + 25,
-            target: "https://www.instagram.com/aceslowman/"
+            x1: window.innerWidth/2.0,
+            y1: window.innerHeight/2.5,
+            target: ""
         }
     ];
 
@@ -75,9 +53,9 @@ $(function(){
         textCtx.textAlign = 'center';
 
         if(width < 500){
-            textCtx.font = "40px Helvetica";
+            textCtx.font = "60px Helvetica";
         }else{
-            textCtx.font = "80px Helvetica";
+            textCtx.font = "80px Helvectica";
         }
 
 
@@ -90,19 +68,13 @@ $(function(){
         var img2 = document.getElementById("twitter_icon");
         var img3 = document.getElementById("ig_icon");
 
-        if( width < 500 ){
-            textCtx.drawImage(img1, (window.innerWidth/2.0) - (165/2), ((window.innerHeight/3) * 2), 25, 25 );
-            textCtx.drawImage(img2, (window.innerWidth/2.0) - (40/2), ((window.innerHeight/3) * 2), 25, 25 );
-            textCtx.drawImage(img3, (window.innerWidth/2.0) + (85/2), ((window.innerHeight/3) * 2), 25, 25 );
-        }else{
-            textCtx.drawImage(img1, window.innerWidth/2.0 - 165, (window.innerHeight/3) * 2 );
-            textCtx.drawImage(img2, window.innerWidth/2.0 - 40, (window.innerHeight/3) * 2 );
-            textCtx.drawImage(img3, window.innerWidth/2.0 + 85, (window.innerHeight/3) * 2 );
-        }
+        textCtx.drawImage(img1, clickbox[0].x1, clickbox[0].y1);
+        textCtx.drawImage(img2, clickbox[1].x1, clickbox[1].y1);
+        textCtx.drawImage(img3, clickbox[2].x1, clickbox[2].y1);
 
         textCtx.lineWidth = 1;
         textCtx.fillStyle = 'white';
-        textCtx.fillText( text, window.innerWidth/2.0, window.innerHeight/3 );
+        textCtx.fillText( text, clickbox[3].x1, clickbox[3].y1 );
 
         textTexture = new THREE.Texture(textCanvas);
         textTexture.needsUpdate = true;
@@ -121,34 +93,13 @@ $(function(){
         renderer.setClearColor( "black" );
 
         setupCameras();
-        setupSourceBuffer();
         setupText("aceslowman");
         setupMainScene();
 
         onWindowResize();
-        window.addEventListener( 'resize', onWindowResize, false );
+        // window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
-
-        window.addEventListener( 'ontouchmove', onTouchMove, false );
-        window.addEventListener( 'ontouchstart', onTouchStart, false );
-    }
-
-    // ============================================================================
-    function setupSourceBuffer(){
-        sourceScene   = new THREE.Scene();
-        sourceTexture = new THREE.WebGLRenderTarget( width, height );
-
-        var whiteMaterial = new THREE.MeshBasicMaterial( { color:"white" } );
-        var blackMaterial = new THREE.MeshBasicMaterial( { color:"black" } );
-
-        var circleGeometry = new THREE.CircleGeometry(0.4,32);
-        var circleGeometry_sm = new THREE.CircleGeometry(0.395,32);
-        var circle = new THREE.Mesh(circleGeometry, whiteMaterial);
-        var circle_sm = new THREE.Mesh(circleGeometry_sm, blackMaterial);
-
-        sourceScene.add( circle );
-        sourceScene.add( circle_sm );
     }
 
     // ============================================================================
@@ -200,8 +151,8 @@ $(function(){
 
         barrelUniforms = {
             tex0: { value: textureC.texture },
-            barrelPower: { value: -0.4 },
-            zoom: { value: 0.9 }
+            barrelPower: { value: 0.7 },
+            zoom: { value: 1.0 }
         }
 
         barrelShaderMaterial = new THREE.ShaderMaterial( {
@@ -230,7 +181,6 @@ $(function(){
 
         barrelBlurChroma();
 
-        //got it here
         var plane3 = new THREE.PlaneBufferGeometry( width, height );
         finalMaterial = new THREE.MeshBasicMaterial({ map: textureC.texture });
         quad = new THREE.Mesh( plane3, finalMaterial );
@@ -267,7 +217,6 @@ $(function(){
 
     // ============================================================================
     function render() {
-        renderer.render( sourceScene, perspectiveCamera, sourceTexture );
         renderer.render( feedbackScene, orthoCamera, textureB );
         renderer.render( sharpenScene, orthoCamera, textureC );
 
@@ -292,9 +241,6 @@ $(function(){
         height = window.innerHeight;
         renderer.setSize(width, height);
 
-        //update textures?
-
-
         perspectiveCamera.aspect = width / height;
         perspectiveCamera.updateProjectionMatrix();
         orthoCamera.updateProjectionMatrix();
@@ -306,62 +252,29 @@ $(function(){
         mouse.y = (event.clientY / window.innerHeight);
 
         feedbackUniforms.vPoint.value = [mouse.x,mouse.y];
+
+        $('html,body').css('cursor', 'default');
+
+        for(var click in clickbox){
+            if(event.clientX > clickbox[click].x1 && event.clientY > clickbox[click].y1){
+                if(event.clientX < clickbox[click].x2 && event.clientY < clickbox[click].y2){
+                    $('html,body').css('cursor', 'pointer');
+                }
+            }
+        }
     }
 
     // ============================================================================
     function onMouseDown(event){
-        // console.log(event.clientX);
-
-        if(width < 500){
-            for(var click in clickbox_sm){
-                console.log(clickbox_sm[click]);
-                if(event.clientX > clickbox_sm[click].x1 && event.clientY > clickbox_sm[click].y1){
-                    if(event.clientX < clickbox_sm[click].x2 && event.clientY < clickbox_sm[click].y2){
-                        window.location.href = clickbox_sm[click].target;
-                    }
+        for(var click in clickbox){
+            console.log(clickbox[click]);
+            if(event.clientX > clickbox[click].x1 && event.clientY > clickbox[click].y1){
+                if(event.clientX < clickbox[click].x2 && event.clientY < clickbox[click].y2){
+                    window.location.href = clickbox[click].target;
                 }
-            }
-        }else{
-            for(var click in clickbox_lg){
-                console.log(clickbox_lg[click]);
-                if(event.clientX > clickbox_lg[click].x1 && event.clientY > clickbox_lg[click].y1){
-                    if(event.clientX < clickbox_lg[click].x2 && event.clientY < clickbox_lg[click].y2){
-                        window.location.href = clickbox_lg[click].target;
-                    }
-                }
+            }else{
+                $('html,body').css('cursor', 'default');
             }
         }
     }
-
-    function onTouchMove(event){
-        mouse.x = (event.pageX / window.innerWidth);
-        mouse.y = (event.pageY / window.innerHeight);
-
-        feedbackUniforms.vPoint.value = [mouse.x,mouse.y];
-    }
-
-    function onTouchStart(event){
-        // console.log(event.clientX);
-
-        if(width < 500){
-            for(var click in clickbox_sm){
-                console.log(clickbox_sm[click]);
-                if(event.pageX > clickbox_sm[click].x1 && event.pageY > clickbox_sm[click].y1){
-                    if(event.pageX < clickbox_sm[click].x2 && event.pageY < clickbox_sm[click].y2){
-                        window.location.href = clickbox_sm[click].target;
-                    }
-                }
-            }
-        }else{
-            for(var click in clickbox_lg){
-                console.log(clickbox_lg[click]);
-                if(event.pageX > clickbox_lg[click].x1 && event.pageY > clickbox_lg[click].y1){
-                    if(event.pageX < clickbox_lg[click].x2 && event.pageY < clickbox_lg[click].y2){
-                        window.location.href = clickbox_lg[click].target;
-                    }
-                }
-            }
-        }
-    }
-
 });
