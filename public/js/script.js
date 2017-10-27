@@ -284,19 +284,49 @@ $(function(){
 
     // ============================================================================
     function onTouchStart(event){
+        preventPull(event);
+
         lastMove = event;
     }
 
     // ============================================================================
     function onTouchEnd(event){
+        preventPull(event);
+
         onMouseDown(lastMove.touches[0]);
     }
 
     // ============================================================================
     function onTouchMove(event){
-        lastMove = event;
+        preventPull(event);
 
-        console.log(lastMove.touches[0]);
-        onMouseMove(lastMove.touches[0]);
+        lastMove = event;
+    }
+
+    function preventPull() {
+      var previousTouches = {};
+      return function(event) {
+        var touches = Array.prototype.slice.call(event.touches);
+        nextTouches = {}
+        touches.forEach(function(touch){
+          nextTouches[touch.identifier] = touch;
+        });
+
+        if(document.scrollingElement.scrollTop > 0) {
+          previousTouches = nextTouches;
+          return;
+        }
+
+        for(var ix = 0; ix < touches.length; ix++) {
+          var touch = touches[ix],
+              id = touch.identifier;
+          if(id in previousTouches && previousTouches[id].screenY < touch.screenY) {
+            event.preventDefault();
+            console.log("event.preventDefault() called")
+            break;
+          }
+        }
+        previousTouches = nextTouches;
+      };
     }
 });
