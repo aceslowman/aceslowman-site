@@ -90,8 +90,6 @@ $(function(){
         renderer = new THREE.WebGLRenderer({ antialias: true });
         document.body.appendChild( renderer.domElement );
 
-
-
         renderer.setClearColor( "black" );
 
         setupCameras();
@@ -99,7 +97,7 @@ $(function(){
         setupMainScene();
 
         onWindowResize();
-        // window.addEventListener( 'resize', onWindowResize, false );
+
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
         window.addEventListener( 'touchend',  onTouchEnd, false );
@@ -294,6 +292,7 @@ $(function(){
 
     // ============================================================================
     function onTouchMove(event){
+        onMouseMove(event);
         lastMove = event;
     }
 });
