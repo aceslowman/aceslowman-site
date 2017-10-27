@@ -292,7 +292,7 @@ $(function(){
 
     // ============================================================================
     function onTouchMove(event){
-        onMouseMove(event);
+        onMouseMove(lastMove.touches[0];
         lastMove = event;
     }
 });
