@@ -103,6 +103,7 @@ $(function(){
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
         window.addEventListener( 'touchend',  onTouchEnd, false );
+        window.addEventListener( 'touchstart',  onTouchStart, false );
         window.addEventListener( 'touchmove', onTouchMove, false );
     }
 
@@ -279,6 +280,11 @@ $(function(){
                 $('html,body').css('cursor', 'default');
             }
         }
+    }
+
+    // ============================================================================
+    function onTouchStart(event){
+        lastMove = event;
     }
 
     // ============================================================================
