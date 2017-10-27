@@ -55,7 +55,7 @@ $(function(){
         if(width < 500){
             textCtx.font = "60px Helvetica";
         }else{
-            textCtx.font = "80px Helvectica";
+            textCtx.font = "80px Helvetica";
         }
 
 
