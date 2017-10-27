@@ -13,6 +13,8 @@ $(function(){
 
     var mouse =  new THREE.Vector2();
 
+    var lastMove = null;
+
     var clickbox = [
         {
             x1: window.innerWidth/2.0 - 155,
@@ -100,6 +102,8 @@ $(function(){
         // window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
+        window.addEventListener( 'touchend',  onTouchEnd, false );
+        window.addEventListener( 'touchmove', onTouchMove, false );
     }
 
     // ============================================================================
@@ -267,7 +271,6 @@ $(function(){
     // ============================================================================
     function onMouseDown(event){
         for(var click in clickbox){
-            console.log(clickbox[click]);
             if(event.clientX > clickbox[click].x1 && event.clientY > clickbox[click].y1){
                 if(event.clientX < clickbox[click].x2 && event.clientY < clickbox[click].y2){
                     window.location.href = clickbox[click].target;
@@ -276,5 +279,18 @@ $(function(){
                 $('html,body').css('cursor', 'default');
             }
         }
+    }
+
+    // ============================================================================
+    function onTouchEnd(event){
+        onMouseDown(lastMove.touches[0]);
+    }
+
+    // ============================================================================
+    function onTouchMove(event){
+        lastMove = event;
+
+        console.log(lastMove.touches[0]);
+        onMouseMove(lastMove.touches[0]);
     }
 });
