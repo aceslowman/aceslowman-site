@@ -60,7 +60,6 @@ $(function(){
             textCtx.font = "80px Helvetica";
         }
 
-
         textCtx.beginPath();
         textCtx.rect(0, 0, window.innerWidth, window.innerHeight);
         textCtx.fillStyle = "black";

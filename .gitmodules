@@ -1,0 +1,3 @@
+[submodule "public/projects/weight_no_more"]
+	path = public/projects/weight_no_more
+	url = https://github.com/aceslowman/weight_no_more
