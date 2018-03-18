@@ -1,17 +1,31 @@
 {
-  "name": "aceslowman",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
-  },
+  "name": "aceslowman_website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "webpack --config webpack.dev.config.js --mode development --watch",
+    "build": "webpack --config webpack.prod.config.js --mode production --optimize-minimize --watch",
+    "start": "nodemon server.js --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aceslowman/aceslowman-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aceslowman/aceslowman-site/issues"
+  },
+  "homepage": "https://github.com/aceslowman/aceslowman-site#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "three": "^0.91.0",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
   }
 }

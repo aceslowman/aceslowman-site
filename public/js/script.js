@@ -1,15 +1,25 @@
-$(function(){
+import $ from "jquery";
+import * as THREE from "three";
 
+import * as sharpenShader from './shaders/sharpen';
+import * as barrelBlurShader from './shaders/barrelBlurChroma';
+import * as feedbackShader from './shaders/feedback';
+
+$(function(){
     var scene, feedbackScene, sharpenScene, barrelScene;
     var perspectiveCamera, orthoCamera;
     var renderer;
 
     var finalMaterial;
     var sharpenUniforms, feedbackUniforms, barrelUniforms;
+    var feedbackShaderMaterial, sharpenShaderMaterial, barrelShaderMaterial;
+
+    var quad;
 
     var textTexture, textureA, textureB, textureC, textureD;
 
-    var width, height;
+    var width = window.innerWidth;
+    var height = window.innerHeight;
 
     var mouse =  new THREE.Vector2();
 
@@ -17,29 +27,29 @@ $(function(){
 
     var clickbox = [
         {
-            x1: window.innerWidth/2.0 - 155,
-            y1: (window.innerHeight/3.5) * 2,
-            x2: (window.innerWidth/2.0 - 155) + 50,
-            y2: ((window.innerHeight/3.5) * 2) + 50,
+            x1: width/2.0 - 155,
+            y1: (height/3.5) * 2,
+            x2: (width/2.0 - 155) + 50,
+            y2: ((height/3.5) * 2) + 50,
             target: "https://www.facebook.com/aceslowman/"
         },
         {
-            x1: window.innerWidth/2.0 - 40,
-            y1: (window.innerHeight/3.5) * 2,
-            x2: (window.innerWidth/2.0 - 40) + 50,
-            y2: ((window.innerHeight/3.5) * 2) + 50,
+            x1: width/2.0 - 40,
+            y1: (height/3.5) * 2,
+            x2: (width/2.0 - 40) + 50,
+            y2: ((height/3.5) * 2) + 50,
             target: "https://twitter.com/aceslowman"
         },
         {
-            x1: window.innerWidth/2.0 + 95,
-            y1: (window.innerHeight/3.5) * 2,
-            x2: (window.innerWidth/2.0 + 95) + 50,
-            y2: ((window.innerHeight/3.5) * 2) + 50,
+            x1: width/2.0 + 95,
+            y1: (height/3.5) * 2,
+            x2: (width/2.0 + 95) + 50,
+            y2: ((height/3.5) * 2) + 50,
             target: "https://www.instagram.com/aceslowman/"
         },
         {
-            x1: window.innerWidth/2.0,
-            y1: window.innerHeight/2.5,
+            x1: width/2.0,
+            y1: height/2.5,
             target: ""
         }
     ];
@@ -47,6 +57,7 @@ $(function(){
     init();
     animate();
 
+    // ============================================================================
     function setupText(text){
         var textCanvas = document.getElementById("textCanvas");
         textCanvas.width = window.innerWidth;
@@ -97,6 +108,7 @@ $(function(){
 
         onWindowResize();
 
+        window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'mousemove', onMouseMove, false );
         window.addEventListener( 'mousedown', onMouseDown, false );
         window.addEventListener( 'touchend',  onTouchEnd, false );
@@ -118,8 +130,8 @@ $(function(){
 
         feedbackShaderMaterial = new THREE.ShaderMaterial( {
         	uniforms: feedbackUniforms,
-        	vertexShader: document.getElementById( 'feedback_vert' ).textContent,
-        	fragmentShader: document.getElementById( 'feedback_frag' ).textContent
+        	vertexShader: feedbackShader.vert,
+        	fragmentShader: feedbackShader.frag
         } );
 
         var plane1 = new THREE.PlaneBufferGeometry( 2., 2.);
@@ -138,8 +150,8 @@ $(function(){
 
         sharpenShaderMaterial = new THREE.ShaderMaterial( {
             uniforms: sharpenUniforms,
-            vertexShader: document.getElementById( 'sharpen_vert' ).textContent,
-            fragmentShader: document.getElementById( 'sharpen_frag' ).textContent
+            vertexShader: sharpenShader.vert,
+            fragmentShader: sharpenShader.frag
         } );
 
         var plane2 = new THREE.PlaneBufferGeometry( 2., 2.);
@@ -153,14 +165,14 @@ $(function(){
 
         barrelUniforms = {
             tex0: { value: textureC.texture },
-            barrelPower: { value: 0.7 },
+            barrelPower: { value: 0.4 },
             zoom: { value: 1.0 }
         }
 
         barrelShaderMaterial = new THREE.ShaderMaterial( {
             uniforms: barrelUniforms,
-            vertexShader: document.getElementById( 'barrelChroma_vert' ).textContent,
-            fragmentShader: document.getElementById( 'barrelChroma_frag' ).textContent
+            vertexShader: barrelBlurShader.vert,
+            fragmentShader: barrelBlurShader.frag
         } );
 
         var plane3 = new THREE.PlaneBufferGeometry( 2., 2.);
@@ -184,7 +196,7 @@ $(function(){
         barrelBlurChroma();
 
         var plane3 = new THREE.PlaneBufferGeometry( width, height );
-        finalMaterial = new THREE.MeshBasicMaterial({ map: textureC.texture });
+        finalMaterial = new THREE.MeshBasicMaterial({ map: textureD.texture });
         quad = new THREE.Mesh( plane3, finalMaterial );
         scene.add( quad );
     }
@@ -227,13 +239,6 @@ $(function(){
         textureC = temp;
 
         renderer.render( barrelScene, orthoCamera, textureD );
-
-        quad.material.map = textureD.texture;
-
-        feedbackUniforms.tex0.value = textureA.texture;
-        sharpenUniforms.tex0.value = textureB.texture;
-        barrelUniforms.tex0.value = textureC.texture;
-
         renderer.render( scene, orthoCamera );
     }
 
@@ -241,11 +246,41 @@ $(function(){
     function onWindowResize() {
         width = window.innerWidth;
         height = window.innerHeight;
-        renderer.setSize(width, height);
 
-        perspectiveCamera.aspect = width / height;
-        perspectiveCamera.updateProjectionMatrix();
-        orthoCamera.updateProjectionMatrix();
+        clickbox = [
+            {
+                x1: width/2.0 - 155,
+                y1: (height/3.5) * 2,
+                x2: (width/2.0 - 155) + 50,
+                y2: ((height/3.5) * 2) + 50,
+                target: "https://www.facebook.com/aceslowman/"
+            },
+            {
+                x1: width/2.0 - 40,
+                y1: (height/3.5) * 2,
+                x2: (width/2.0 - 40) + 50,
+                y2: ((height/3.5) * 2) + 50,
+                target: "https://twitter.com/aceslowman"
+            },
+            {
+                x1: width/2.0 + 95,
+                y1: (height/3.5) * 2,
+                x2: (width/2.0 + 95) + 50,
+                y2: ((height/3.5) * 2) + 50,
+                target: "https://www.instagram.com/aceslowman/"
+            },
+            {
+                x1: width/2.0,
+                y1: height/2.5,
+                target: ""
+            }
+        ];
+
+        setupCameras();
+        setupText("aceslowman");
+        setupMainScene();
+
+        renderer.setSize(width, height);
     }
 
     // ============================================================================

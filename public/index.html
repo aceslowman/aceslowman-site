@@ -8,13 +8,13 @@
 
     <meta property="og:title" content="aceslowman" />
     <meta property="og:description" content="austin słominski is an audiovisual artist" />
-    <meta property="og:image" content="%PUBLIC_URL%/img/social.png">
+    <meta property="og:image" content="img/social.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="favicon.ico">
 
 
     <style>
@@ -46,10 +46,15 @@
         }
 
         .frame{
-            width:100%;
-            height:50px;
+            /* width:100%;
+            height:50px; */
+            display:none;
+            /* text-align: center; margin: 1em 0; */
+        }
 
-            text-align: center; margin: 1em 0;
+        #textCanvas {
+          width:100%;
+          height:100%;
         }
 
         #fb_icon{
@@ -70,187 +75,18 @@
   <body>
     <div class="frame">
         <span class="helper"></span>
-        <img id="fb_icon" src="%PUBLIC_URL%/img/fb_icon.png" />
-        <img id="twitter_icon" src="%PUBLIC_URL%/img/twitter_icon.png" />
-        <img id="ig_icon" src="%PUBLIC_URL%/img/ig_icon.png" />
+        <img id="fb_icon" src="img/fb_icon.png" />
+        <img id="twitter_icon" src="img/twitter_icon.png" />
+        <img id="ig_icon" src="img/ig_icon.png" />
     </div>
 
     <noscript>
       You need to enable JavaScript to run this app .
     </noscript>
+
     <div id="root"></div>
     <canvas id="textCanvas"></canvas>
-
-    <script id="sharpen_vert" type="x-shader/x-vertex">
-        varying vec2 texcoord;
-
-        varying vec2 texcoord11;
-        varying vec2 texcoord00;
-        varying vec2 texcoord02;
-        varying vec2 texcoord20;
-        varying vec2 texcoord22;
-
-        uniform float width;
-
-        void main()
-        {
-        	gl_Position = vec4( position, 1.0 );
-
-        	texcoord = uv;
-
-        	texcoord11 = texcoord;
-        	texcoord00 = texcoord + vec2(-width, -width);
-        	texcoord02 = texcoord + vec2( width, -width);
-        	texcoord20 = texcoord + vec2( width,  width);
-        	texcoord22 = texcoord + vec2(-width,  width);
-        }
-    </script>
-    <script id="sharpen_frag" type="x-shader/x-fragment">
-        uniform sampler2D tex0;
-
-        varying vec2 texcoord;
-
-        varying vec2 texcoord11;
-        varying vec2 texcoord00;
-        varying vec2 texcoord02;
-        varying vec2 texcoord20;
-        varying vec2 texcoord22;
-
-        void main()
-        {
-        	vec4 s11 = texture2D(tex0, texcoord11);
-        	vec4 s00 = texture2D(tex0, texcoord00);
-        	vec4 s02 = texture2D(tex0, texcoord02);
-        	vec4 s20 = texture2D(tex0, texcoord20);
-        	vec4 s22 = texture2D(tex0, texcoord22);
-
-        	vec4 sharp = 5.0 * s11 - (s00 + s02 + s20 + s22);
-            vec4 color = texture2D(tex0, texcoord);
-
-        	gl_FragColor = sharp;
-        }
-    </script>
-
-    <script id="feedback_vert" type="x-shader/x-vertex">
-        varying vec2 vUv;
-
-        void main()	{
-            vUv = uv;
-            gl_Position = vec4( position, 1.0 );
-        }
-    </script>
-    <script id="feedback_frag" type="x-shader/x-fragment">
-        uniform sampler2D tex0;
-        uniform sampler2D tex1;
-        varying vec2 vUv;
-
-        uniform float feedback;
-        uniform float scale;
-
-        uniform vec2 vPoint;
-
-        void main(){
-
-            vec4 color;
-
-            vec2 uv = vUv;
-            vec2 uv2 = uv;
-
-		    uv2 -= vPoint;
-	        uv2 += vPoint/scale;
-			uv2 *= scale;
-
-            vec4 fb = vec4(0.0);
-            vec4 current = vec4(0.0);
-            vec4 tmp;
-
-            current = texture2D(tex1, uv);
-            fb = texture2D(tex0, uv2);
-            color = current + (fb * feedback);
-
-            gl_FragColor = vec4(color.rgb,1.0);
-        }
-    </script>
-
-
-    <script id="barrelChroma_vert" type="x-shader/x-vertex">
-        varying vec2 vUv;
-
-        void main()	{
-            vUv = uv;
-            gl_Position = vec4( position, 1.0 );
-        }
-    </script>
-    <script id="barrelChroma_frag" type="x-shader/x-fragment">
-        // adapted from
-        // https://github.com/SableRaf/Filters4Processing/blob/master/sketches/BarrelBlurChroma/data/barrelBlurChroma.glsl
-
-        uniform sampler2D tex0;
-        varying vec2 texcoord0;
-        varying vec2 texdim0;
-        varying vec2 vUv;
-
-        uniform float barrelPower;
-        uniform float zoom;
-
-        const int num_iter = 12;
-        const float reci_num_iter_f = 1.0 / float(num_iter);
-
-        vec2 barrelDistortion(vec2 coord, float amt) {
-            vec2 cc = coord - 0.5;
-            float dist = dot(cc, cc);
-            return coord + cc * dist * amt;
-        }
-
-        float sat( float t ){
-            return clamp( t, 0.0, 1.0 );
-        }
-
-        float linterp( float t ) {
-            return sat( 1.0 - abs( 2.0*t - 1.0 ) );
-        }
-
-        float remap( float t, float a, float b ) {
-            return sat( (t - a) / (b - a) );
-        }
-
-        vec3 spectrum_offset( float t ) {
-            vec3 ret;
-            float lo = step(t,0.5);
-            float hi = 1.0-lo;
-            float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
-            ret = vec3(lo,1.0,hi) * vec3(1.0-w, w, 1.0-w);
-
-            return pow( ret, vec3(1.0/2.2) );
-        }
-
-        void main()
-        {
-            vec2 uv = vUv;
-
-            uv -= 0.5;
-            uv += 0.5/zoom;
-            uv *= zoom;
-
-            vec3 sumcol = vec3(0.0);
-            vec3 sumw = vec3(0.0);
-            for ( int i=0; i<num_iter;++i )
-            {
-                float t = float(i) * reci_num_iter_f;
-                vec3 w = spectrum_offset( t );
-                sumw += w;
-                sumcol += w * texture2D( tex0, barrelDistortion(uv, barrelPower*t)).rgb;
-            }
-
-            gl_FragColor = vec4(sumcol.rgb / sumw, 1.0);
-        }
-    </script>
-
-
-
-
-    <script src="%PUBLIC_URL%/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="%PUBLIC_URL%/js/three.min.js" type="text/javascript"></script>
-    <script src="%PUBLIC_URL%/js/script.js" type="text/javascript"></script>
+    <script src='js/dist/common.bundle.js'></script> <!-- Only for dev -->
+    <script src='js/dist/bundle.js'></script>
   </body>
 </html>
