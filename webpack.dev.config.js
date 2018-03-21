@@ -1,15 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
 
-var entry = './public/js/script.js',
-    destination = path.join(__dirname, 'public/js/dist');
+var entryHome = './public/js/home.js';
+var entryPages = './public/js/pages.js';
+
+var destination = path.join(__dirname, 'public/js/dist');
 
 module.exports = {
-    entry: entry,
+    entry: {
+        home: entryHome,
+        pages: entryPages
+    },
     output: {
         path: destination,
-        filename: 'bundle.js'
+        filename: "[name].js"
     },
+
     resolve: {
         modules: ['node_modules', 'src'],
         extensions: ['*', '.js', '.json']
