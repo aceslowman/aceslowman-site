@@ -110,7 +110,7 @@ $(function(){
         y1: height/2.5 - 50,
         x2: width/2.0 + 250,
         y2: height/2.5,
-        target: "projects.html"
+        target: "projects"
       },
     ];
 

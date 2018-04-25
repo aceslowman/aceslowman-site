@@ -2,14 +2,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-var port = 3000;
+app.enable('strict routing');
 
-const public_path = __dirname + '/public';
+app.use(express.static('public', {redirect: false}));
 
-app.use(express.static('public'));
+app.use('/projects/weight_no_more',
+  express.static('public/projects/weight_no_more/public'));
 
-app.get('/', function(request,response){
-  response.sendFile(public_path + '/index.html');
-});
-
-app.listen(port);
+app.listen(3000);

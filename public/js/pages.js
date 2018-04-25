@@ -134,7 +134,7 @@ $(function(){
 
     barrelUniforms = {
       tex0: { value: textureC.texture },
-      barrelPower: { value: 0.0 },
+      barrelPower: { value: 0.1 },
       zoom: { value: 1.0 }
     }
 
