@@ -1,5 +1,4 @@
 const path = require('path');
-const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require('webpack');
 
 var entryHome = './public/js/home.js';
