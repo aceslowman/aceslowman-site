@@ -12,7 +12,7 @@ let manager, debug, capturer, box, camera, capsule, light, text, post;
 
 const setup = () => {
   manager = new StandardManager();
-  if(!process.env.DEVELOPMENT) manager.gui.toggleHide();
+  if(!process.env.DEVELOPMENT) manager.gui.__proto__.constructor.toggleHide();
   camera = new OrthographicCamera(manager);
   manager.setCamera(camera);
 
