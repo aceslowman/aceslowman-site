@@ -12,7 +12,7 @@ let manager, debug, capturer, box, camera, capsule, light, text, post;
 
 const setup = () => {
   manager = new StandardManager();
-  // manager.gui.hide();
+  manager.gui.close();
   camera = new OrthographicCamera(manager);
   manager.setCamera(camera);
 
