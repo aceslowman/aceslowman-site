@@ -16,7 +16,7 @@ varying vec2 texcoord0;
 varying vec2 texdim0;
 varying vec2 vUv;
 
-uniform float barrelPower;
+uniform float power;
 uniform float zoom;
 
 const int num_iter = 12;
@@ -65,7 +65,7 @@ void main()
         float t = float(i) * reci_num_iter_f;
         vec3 w = spectrum_offset( t );
         sumw += w;
-        sumcol += w * texture2D( tex0, barrelDistortion(uv, barrelPower*t)).rgb;
+        sumcol += w * texture2D( tex0, barrelDistortion(uv, power*t)).rgb;
     }
 
     gl_FragColor = vec4(sumcol.rgb / sumw, 1.0);

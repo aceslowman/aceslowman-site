@@ -12,7 +12,7 @@ uniform sampler2D tex0;
 uniform sampler2D tex1;
 varying vec2 vUv;
 
-uniform float feedback;
+uniform float amount;
 uniform float scale;
 
 uniform vec2 vPoint;
@@ -28,13 +28,9 @@ void main(){
     uv2 += vPoint/scale;
     uv2 *= scale;
 
-    vec4 fb = vec4(0.0);
-    vec4 current = vec4(0.0);
-    vec4 tmp;
-
-    current = texture2D(tex0, uv);
-    fb = texture2D(tex1, uv2);
-    color = current + (fb * feedback);
+    vec4 current = texture2D(tex1, uv);
+    vec4 fb = texture2D(tex0, uv2);
+    color = current + (fb * amount);
 
     gl_FragColor = vec4(color.rgb,1.0);
 }

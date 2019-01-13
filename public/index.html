@@ -17,27 +17,48 @@
   <div class="container">
     <div class="index">
       <a id="index"></a>
-      <h2>Table of Contents</h2>
-      <ul>
-        <li>A Vulgar Language</li>
-        <li>Theta</li>
-        <li>Waves</li>
-        <li>ofxGrowth</li>
-        <li>Procedural Tools</li>
-        <li>BEGINNER/NAIVE</li>
-        <li>VR Experiments</li>
-        <li>Feedback Experiments</li>
-        <li>Jit Hausu</li>
-        <li>Negative Symbols</li>
-        <li>Doom</li>
-        <li>Arclite</li>
-        <li>RingChord</li>
-      </ul>
-      <img src="http://lorempixel.com/200/800" />
+      <div class="gridContainer">
+        <a style="" href="" data-title="VR Experiments" data-desc="A series of experiments utilizing VR"><img src="../img/mobiesque.png" /></a>
+        <a style="" href="" data-title="Procedural City" data-desc=""><img src="../img/procedural_tools.png" /></a>
+        <a style="" href="" data-title="Bloom" data-desc="2015, Installation"><img src="../img/bloom.png" /></a>
+        <a style="" href="" data-title="BEGINNER / NAIVE" data-desc=""><img src="../img/beginner.png" /></a>
+
+        <a style="" href="" data-title="A Vulgar Language" data-desc="A series of experiments utilizing VR"><img src="../img/avl.png" /></a>
+        <a style="" href="" data-title="Shader Experiments" data-desc=""><img src="../img/cvshred2.png" /></a>
+        <a style="" href="" data-title="The City as I Remember It" data-desc=""><img src="../img/thecity.png" /></a>
+        <a style="" href="" data-title="New Window" data-desc=""><img src="../img/newwindow.png" /></a>
+        <a style="" href="" data-title="jit.hausu" data-desc="2015, Installation"><img src="../img/bloom_small_2x1.png" /></a>
+        <a style="" href="" data-title="theta synth" data-desc=""><img src="../img/beginner_small_1x2.png" /></a>
+
+      </div>
+      <div class="indexCaption">
+        <h3><span></span></h3>
+        <p><span></span></p>
+      </div>
     </div>
+
+    <!-- <div class="project">
+      <h2> WHOAH </h2>
+    </div> -->
+
   </div>
+
   <script src='js/dist/common.bundle.js'></script> <!-- Only for dev -->
   <script src='js/dist/bundle.js'></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/JavaScript">
+    $('.gridContainer a').hover(function(){
+      console.log(this.dataset.title);
+      $('.indexCaption h3 span').text(this.dataset.title);
+      $('.indexCaption p span').text(this.dataset.desc);
+      $('.indexCaption').slideDown(100, function(){});
+    }, function(){
+      // $('.indexCaption').slideUp(100, function(){});
+    });
+
+
+  </script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ let manager, debug, capturer, box, camera, capsule, light, text, post;
 
 const setup = () => {
   manager = new StandardManager();
-
+  // manager.gui.hide();
   camera = new OrthographicCamera(manager);
   manager.setCamera(camera);
 
@@ -53,6 +53,20 @@ const bindEventListeners = () => {
     manager.onWindowResize.bind(manager),
     false
   );
+  window.addEventListener(
+    'resize',
+    manager.onWindowResize.bind(manager),
+    false
+  );
+  window.addEventListener('mousemove', onMouseMove, false);
+}
+
+const onMouseMove = (e)=>{
+  const x = ( e.clientX / window.innerWidth );
+  const y = ( e.clientY / window.innerHeight );
+
+  post.shader_feedback.uniforms.vPoint.value[0] = x;
+  post.shader_feedback.uniforms.vPoint.value[1] = y;
 }
 
 setup();
