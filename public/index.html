@@ -3,11 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <style>
-
-  </style>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>aceslowman - austin slominski</title>
+  <link rel="stylesheet" href="../css/home.css">
 </head>
 
 <body>
@@ -18,24 +15,78 @@
     <div class="index">
       <a id="index"></a>
       <div class="gridContainer">
-        <a style="" href="" data-title="VR Experiments" data-desc="various 2017 - 2018"><img src="../img/mobiesque.png" /></a>
-        <a style="" href="" data-title="Procedural Experiments" data-desc="various 2017 -"><img src="../img/procedural_tools.png" /></a>
-        <a style="" href="" data-title="Live Visuals" data-desc="various 2015 -"><img src="../img/bloom.png" /></a>
-        <a style="" href="" data-title="Beginner" data-desc="installation 2017"><img src="../img/beginner.png" /></a>
-        <a style="" href="" data-title="A Vulgar Language" data-desc="installation 2016"><img src="../img/avl.png" /></a>
-        <a style="" href="" data-title="Shader Experiments" data-desc="various 2016 -"><img src="../img/cvshred2.png" /></a>
-        <a style="" href="" data-title="OpenFrameworks Experiments" data-desc="various 2014 - "><img src="../img/thecity.png" /></a>
-        <a style="" href="" data-title="P5 Experiments" data-desc="various 2016 -"><img src="../img/pixelprocedural.png" /></a>
-        <a style="" href="" data-title="Jitter Experiments" data-desc="various 2016 -"><img src="../img/jitterexperiment.png" /></a>
-        <a style="" href="" data-title="New Window" data-desc="performance using OpenCV and OpenFrameworks 2014"><img src="../img/newwindow.png" /></a>
-        <a style="" href="" data-title="jit.hausu" data-desc="MaxMSP live toolset 2016 - "><img src="../img/jithausu.png" /></a>
-        <a style="" href="" data-title="ring synth" data-desc="tool 2018 - "><img src="../img/ringchord.png" /></a>
+        <a style="" href="vr-experiments.html" data-title="VR Experiments" data-desc="various 2017 - 2018">
+          <img src="../img/mobiesque.png" />
+        </a>
+
+        <a style="" href="procedural-experiments.html" data-title="Procedural Experiments" data-desc="various 2017 -">
+          <img src="../img/procedural_tools.png" />
+        </a>
+
+
+
+        <a style="" href="live-visuals.html" data-title="Live Visuals" data-desc="various 2015 -">
+          <img src="../img/bloom.png" />
+        </a>
+
+        <a style="" href="jit-hausu.html" data-title="jit.hausu" data-desc="MaxMSP live toolset 2016 - ">
+          <img src="../img/jithausu.png" />
+        </a>
+
+        <a style="" href="new-window.html" data-title="New Window" data-desc="performance using OpenCV and OpenFrameworks 2014">
+          <img src="../img/newwindow.png" />
+        </a>
+
+        <a style="" href="beginner.html" data-title="Beginner" data-desc="installation 2017">
+          <img src="../img/beginner.png" />
+        </a>
+
+        <a style="" href="a-vulgar-language.html" data-title="A Vulgar Language" data-desc="installation 2016">
+          <img src="../img/avl.png" />
+        </a>
+
+        <a style="" href="shader-experiments.html" data-title="Shader Experiments" data-desc="various 2016 -">
+          <img src="../img/cvshred2.png" />
+        </a>
+
+        <a style="" href="unnatural-blue.html" data-title="Unnatural Blue" data-desc="music video 2018">
+          <img src="../img/unnaturalblue.png" />
+        </a>
+
+
+
+        <a style="" href="p5_experiments/ringchord/index.html" data-title="ringchords" data-desc="2017">
+          <img src="../img/ringchord.png" />
+        </a>
+
+
+
+
+        <!-- <a style="" href="openframeworks-experiments.html" data-title="OpenFrameworks Experiments" data-desc="various 2014 - ">
+          <img src="../img/thecity.png" />
+          <!-- <h3></h3> -->
+        <!-- </a> -->
+
+
+        <!-- <a style="" href="p5-experiments.html" data-title="P5 Experiments" data-desc="various 2016 -">
+          <img src="../img/pixelprocedural.png" />
+
+        </a>
+
+        <a style="" href="jitter-experiments.html" data-title="Jitter Experiments" data-desc="various 2016 -">
+          <img src="../img/jitterexperiment.png" />
+
+        </a> -->
 
       </div>
       <div class="indexCaption">
         <h3><span></span></h3>
         <p><span></span></p>
       </div>
+    </div>
+    <div class="about">
+      <h2>aceslowman is Austin Slominski</h2>
+      <p>I am a 25 year old multimedia currently living in Missoula, MT.</p>
     </div>
 
     <!-- <div class="project">
@@ -49,11 +100,16 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/JavaScript">
+
+
     $('.gridContainer a').hover(function(){
-      console.log(this.dataset.title);
-      $('.indexCaption h3 span').text(this.dataset.title);
-      $('.indexCaption p span').text(this.dataset.desc);
-      $('.indexCaption').slideDown(100, function(){});
+      // if($(window).width > 800){
+        console.log(this.dataset.title);
+        $('.indexCaption h3 span').text(this.dataset.title);
+        $('.indexCaption p span').text(this.dataset.desc);
+        $('.indexCaption').slideDown(100, function(){});
+      // }
+
     }, function(){
       // $('.indexCaption').slideUp(100, function(){});
     });

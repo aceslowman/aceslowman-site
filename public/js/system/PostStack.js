@@ -104,7 +104,7 @@ export default class PostStack {
 
     this.shader_chroma = new THREE.ShaderMaterial({
       uniforms: {
-        power: { value: 0.0 },
+        power: { value: 0.3 },
         zoom: { value: 1.0 }
       },
       vertexShader: barrelBlurChroma.vert,

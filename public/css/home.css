@@ -1,0 +1,110 @@
+html{
+    width:100%;
+    height:100%;
+}
+
+canvas{
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:-100;
+}
+
+body{
+  padding:0px;
+  margin:0px;
+  width:100%;
+  height:100%;
+  background-color:black;
+  overflow-x:hidden;
+}
+
+h2 {
+  font-size: 2.8em;
+  margin:0px;
+}
+
+.container {
+  top:100%;
+  width:100%;
+  position:relative;
+}
+
+.index {
+  padding:15px;
+  background-color:white;
+  width:100%;
+  height:100%;
+  box-sizing:border-box;
+}
+
+.gridContainer {
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.gridContainer a img {
+  object-fit:cover;
+  width:100%;
+  height:100%;
+}
+
+.gridContainer a h3 {
+  /* visibility: hidden; */
+  position:relative;
+  color:white;
+  padding:15px;
+  top:0px;
+}
+
+.gridContainer a{
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+}
+
+.gridContainer a:hover {
+  transform: scale(1.05);
+}
+
+.indexCaption {
+  pointer-events: none;
+  position:sticky;
+  bottom:30px;
+  left: 50%;
+  display:none;
+  color:white;
+  padding:15px;
+}
+
+.indexCaption h3 {
+  font-size:6.5em;
+  margin:0px;
+}
+
+.indexCaption h3 span, .indexCaption p span {
+  background-color:black;
+}
+
+.indexCaption p {
+  font-style: italic;
+}
+
+.project {
+  background-color:yellow;
+  height:100%;
+  width:100%;
+}
+
+.content {
+  padding: 15px;
+}
+
+.about {
+  color:white;
+  padding:15px;
+  text-align: right;
+}

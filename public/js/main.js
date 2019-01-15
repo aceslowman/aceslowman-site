@@ -53,11 +53,6 @@ const bindEventListeners = () => {
     manager.onWindowResize.bind(manager),
     false
   );
-  window.addEventListener(
-    'resize',
-    manager.onWindowResize.bind(manager),
-    false
-  );
   window.addEventListener('mousemove', onMouseMove, false);
 }
 
