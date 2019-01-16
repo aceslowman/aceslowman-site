@@ -66,8 +66,8 @@ export default class PostStack {
       uniforms: {
         tex0: { value: this.intermediateTarget.texture },
         tex1: { value: this.inputTarget.texture },
-        amount: { value: 0.9 },
-        scale: { value: 0.99 },
+        amount: { value: 0.81 },
+        scale: { value: 0.991 }, // big big potential for experimentation TODO
         vPoint: { value: [0.5,0.6] }
       },
       vertexShader: feedback.vert,
