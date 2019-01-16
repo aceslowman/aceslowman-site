@@ -14,7 +14,7 @@ export default class MainText extends StandardEntity{
     this.textCtx.textAlign = 'center';
 
     if(this.manager.width < 500){
-      this.textCtx.font = "100px Times";
+      this.textCtx.font = "110px Times";
     }else{
       this.textCtx.font = "120px Times";
     }
