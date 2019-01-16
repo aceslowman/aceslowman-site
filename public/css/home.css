@@ -53,12 +53,14 @@ h2 {
   height:100%;
 }
 
-.gridContainer a{
-  -webkit-transition: transform .2s;
-  transition: transform .2s;
-}
+
 
 @media only screen and (min-width: 500px) {
+  .gridContainer a{
+    -webkit-transition: transform .2s;
+    transition: transform .2s;
+  }
+
   .gridContainer a:hover {
     transform: scale(1.05);
   }
