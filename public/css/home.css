@@ -53,21 +53,15 @@ h2 {
   height:100%;
 }
 
-/* .gridContainer a h3 {
-  visibility: hidden;
-  position:relative;
-  color:white;
-  padding:15px;
-  top:0px;
-} */
-
 .gridContainer a{
   -webkit-transition: transform .2s;
   transition: transform .2s;
 }
 
-.gridContainer a:hover {
-  transform: scale(1.05);
+@media only screen and (min-width: 500px) {
+  .gridContainer a:hover {
+    transform: scale(1.05);
+  }
 }
 
 .indexCaption {
