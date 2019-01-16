@@ -35,13 +35,6 @@ img {
   margin-bottom:15px;
 }
 
-/* Small screens */
-@media all and (max-width: 500px) {
-  .full-height {
-    flex-direction: column;
-  }
-}
-
 .full-height div {
   padding:15px;
 }
@@ -54,4 +47,17 @@ img {
 .container {
   max-width:1400px;
   margin:0 auto;
+}
+
+/* Small screens */
+@media only screen and (max-width: 500px) {
+  .full-height div {
+    width:100% !important;
+  }
+  .title h1 {
+    font-size:2em;
+  }
+  .title h1 a {
+    bottom:6px;
+  }
 }

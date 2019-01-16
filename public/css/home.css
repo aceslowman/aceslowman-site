@@ -53,13 +53,13 @@ h2 {
   height:100%;
 }
 
-.gridContainer a h3 {
-  /* visibility: hidden; */
+/* .gridContainer a h3 {
+  visibility: hidden;
   position:relative;
   color:white;
   padding:15px;
   top:0px;
-}
+} */
 
 .gridContainer a{
   -webkit-transition: transform .2s;
@@ -107,4 +107,34 @@ h2 {
   color:white;
   padding:15px;
   text-align: right;
+}
+
+.gridContainer a div{
+  visibility: hidden;
+  color:white;
+  position:absolute;
+}
+
+.gridContainer a div h2 {
+  display:inline-block;
+  background-color:black;
+  text-decoration:none;
+  font-size:3.0em;
+}
+
+.gridContainer a div p {
+  display:inline-block;
+  background-color:black;
+  text-decoration:none;
+  font-style:italic;
+}
+
+/* Small screens */
+@media only screen and (max-width: 500px) {
+  .gridContainer {
+
+  }
+  .gridContainer a div {
+    visibility: visible;
+  }
 }
