@@ -16,12 +16,29 @@
     <div class="index">
       <a id="index"></a>
       <div class="gridContainer">
-        <a style="" href="vr-experiments.html" data-title="VR Experiments" data-desc="various works (2017 - ongoing)">
+
+        <a style="" href="live-visuals.html" data-title="Live Visuals" data-desc="various shows (2015 - ongoing)">
           <div>
-            <h2>VR Experiments</h2>
+            <h2>Live Visuals</h2>
+            <p>various shows (2015 - ongoing)</p>
+          </div>
+          <img src="../img/bloom.png" />
+        </a>
+
+        <a style="" href="installations.html" data-title="Installations" data-desc="installation (2017)">
+          <div>
+            <h2>Installations</h2>
+            <p>(2016 - 2017)</p>
+          </div>
+          <img src="../img/beginner.png" />
+        </a>
+
+        <a style="" href="openframeworks-experiments.html" data-title="Video Art" data-desc="various 2014 - ">
+          <div>
+            <h2>Video Art</h2>
             <p>various works (2017 - ongoing)</p>
           </div>
-          <img src="../img/mobiesque.png" />
+          <img src="../img/cvshred2.png" />
         </a>
 
         <a style="" href="procedural-experiments.html" data-title="Procedural Experiments" data-desc="various works (2017 - ongoing)">
@@ -32,88 +49,26 @@
           <img src="../img/procedural_tools.png" />
         </a>
 
-        <a style="" href="live-visuals.html" data-title="Live Visuals" data-desc="various shows (2015 - ongoing)">
+        <a style="" href="p5_experiments/ringchord/index.html" data-title="Web Experiments" data-desc="web audio toy (2017)">
           <div>
-            <h2>Live Visuals</h2>
-            <p>various shows (2015 - ongoing)</p>
-          </div>
-          <img src="../img/bloom.png" />
-        </a>
-
-        <a style="" href="jit-hausu.html" data-title="[jit.hausu]" data-desc="MaxMSP live graphics toolset (2016 - ongoing)">
-          <div>
-            <h2>[jit.hausu]</h2>
-            <p>MaxMSP live graphics toolset (2016 - ongoing)</p>
-          </div>
-          <img src="../img/jithausu.png" />
-        </a>
-
-        <a style="" href="new-window.html" data-title="New Window" data-desc="performance using OpenCV and OpenFrameworks (2014)">
-          <div>
-            <h2>New Window</h2>
-            <p>performance using OpenCV and OpenFrameworks (2014)</p>
-          </div>
-          <img src="../img/newwindow.png" />
-        </a>
-
-        <a style="" href="installations.html" data-title="Beginner" data-desc="installation (2017)">
-          <div>
-            <h2>Installations</h2>
-            <p>(2016 - 2017)</p>
-          </div>
-          <img src="../img/beginner.png" />
-        </a>
-
-        <a style="" href="a-vulgar-language.html" data-title="A Vulgar Language" data-desc="installation (2016)">
-          <div>
-            <h2>A Vulgar Language</h2>
-            <p>installation (2016)</p>
-          </div>
-          <img src="../img/avl.png" />
-        </a>
-
-        <a style="" href="shader-experiments.html" data-title="Shader Experiments" data-desc="various works (2016 - ongoing)">
-          <div>
-            <h2>Shader Experiments</h2>
-            <p>various works (2016 - ongoing)</p>
-          </div>
-          <img src="../img/cvshred2.png" />
-        </a>
-
-        <a style="" href="unnatural-blue.html" data-title="Unnatural Blue" data-desc="music video (2018)">
-          <div>
-            <h2>Unnatural Blue</h2>
-            <p>music video (2018)</p>
-          </div>
-          <img src="../img/unnaturalblue.png" />
-        </a>
-
-        <a style="" href="p5_experiments/ringchord/index.html" data-title="Ringchords" data-desc="web audio toy (2017)">
-          <div>
-            <h2>Ringchords</h2>
+            <h2>Web Experiments</h2>
             <p>web audio toy (2017)</p>
           </div>
           <img src="../img/ringchord.png" />
         </a>
 
-
-
-
-        <!-- <a style="" href="openframeworks-experiments.html" data-title="OpenFrameworks Experiments" data-desc="various 2014 - ">
-          <img src="../img/thecity.png" />
-          <!-- <h3></h3> -->
-        <!-- </a> -->
-
-
-        <!-- <a style="" href="p5-experiments.html" data-title="P5 Experiments" data-desc="various 2016 -">
-          <img src="../img/pixelprocedural.png" />
-
+        <a style="" href="vr-experiments.html" data-title="VR Experiments" data-desc="various works (2017 - ongoing)">
+          <div>
+            <h2>VR Experiments</h2>
+            <p>various works (2017 - ongoing)</p>
+          </div>
+          <img src="../img/mobiesque.png" />
         </a>
 
-        <a style="" href="jitter-experiments.html" data-title="Jitter Experiments" data-desc="various 2016 -">
-          <img src="../img/jitterexperiment.png" />
-
-        </a> -->
+        <!-- <div class="about-me">
+            <h2>About Me</h2>
+            <p>various works (2017 - ongoing)</p>
+        </div> -->
 
       </div>
       <div class="indexCaption">
@@ -123,7 +78,6 @@
     </div>
     <div class="about">
       <h2>aceslowman is Austin Slominski</h2>
-      <p><em>2019</em></p>
       <!-- <p>I am a 25 year old multimedia currently living in Missoula, MT.</p> -->
     </div>
 
@@ -150,6 +104,11 @@
 
     }, function(){
       // $('.indexCaption').slideUp(100, function(){});
+    });
+
+    $("body").click(function(){
+      console.log('hit');
+      $(".index")[0].scrollIntoView({ block: 'start',  behavior: 'smooth' });
     });
 
 
