@@ -17,74 +17,65 @@
       <a id="index"></a>
       <div class="gridContainer">
 
-        <a style="" href="live-visuals.html" data-title="Live Visuals" data-desc="various shows (2015 - ongoing)">
+        <a href="live-visuals.html" data-title="Live Visuals" data-desc="various shows (2015 - ongoing)">
           <div>
             <h2>Live Visuals</h2>
             <p>various shows (2015 - ongoing)</p>
           </div>
-          <img src="../img/bloom.png" />
+          <img src="../img/home/bloom.png" />
         </a>
 
-        <a style="" href="installations.html" data-title="Installations" data-desc="installation (2017)">
+        <a href="installations.html" data-title="Installations" data-desc="installation (2017)">
           <div>
             <h2>Installations</h2>
             <p>(2016 - 2017)</p>
           </div>
-          <img src="../img/beginner.png" />
+          <img src="../img/home/beginner.png" />
         </a>
 
-        <a style="" href="openframeworks-experiments.html" data-title="Video Art" data-desc="various 2014 - ">
+        <a href="video-art.html" data-title="Video Art" data-desc="various 2014 - ">
           <div>
             <h2>Video Art</h2>
             <p>various works (2017 - ongoing)</p>
           </div>
-          <img src="../img/cvshred2.png" />
+          <img src="../img/home/cvshred2.png" />
         </a>
 
-        <a style="" href="procedural-experiments.html" data-title="Procedural Experiments" data-desc="various works (2017 - ongoing)">
+        <a href="procedural-experiments.html" data-title="Procedural Experiments" data-desc="various works (2017 - ongoing)">
           <div>
             <h2>Procedural Experiments</h2>
             <p>various works (2017 - ongoing)</p>
           </div>
-          <img src="../img/procedural_tools.png" />
+          <img src="../img/home/procedural_tools.png" />
         </a>
 
-        <a style="" href="p5_experiments/ringchord/index.html" data-title="Web Experiments" data-desc="web audio toy (2017)">
+        <a href="web-experiments.html" data-title="Web Experiments" data-desc="web audio toy (2017)">
           <div>
             <h2>Web Experiments</h2>
             <p>web audio toy (2017)</p>
           </div>
-          <img src="../img/ringchord.png" />
+          <img src="../img/home/ringchord.png" />
         </a>
 
-        <a style="" href="vr-experiments.html" data-title="VR Experiments" data-desc="various works (2017 - ongoing)">
+        <a href="vr-experiments.html" data-title="VR Experiments" data-desc="various works (2017 - ongoing)">
           <div>
             <h2>VR Experiments</h2>
             <p>various works (2017 - ongoing)</p>
           </div>
-          <img src="../img/mobiesque.png" />
+          <img src="../img/home/mobiesque.png" />
         </a>
 
-        <!-- <div class="about-me">
-            <h2>About Me</h2>
-            <p>various works (2017 - ongoing)</p>
-        </div> -->
-
       </div>
+
       <div class="indexCaption">
         <h3><span></span></h3>
         <p><span></span></p>
       </div>
+
     </div>
     <div class="about">
       <h2 style="padding-right:10px;">aceslowman is Austin Slominski </h2><h2 style="padding-left: 5px; background-color:white;"> <a  style=" text-decoration:none;"href="https://facebook.com/aceslowman">fb</a> <a style=" text-decoration:none;"href="https://instagram.com/aceslowman">ig</a></h2>
-      <!-- <p>I am a 25 year old multimedia currently living in Missoula, MT.</p> -->
     </div>
-
-    <!-- <div class="project">
-      <h2> WHOAH </h2>
-    </div> -->
-
   </div>
 
   <script src='js/dist/common.bundle.js'></script> <!-- Only for dev -->
@@ -93,24 +84,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/JavaScript">
 
-
     $('.gridContainer a').hover(function(){
-      // if($(window).width > 800){
-        console.log(this.dataset.title);
         $('.indexCaption h3 span').text(this.dataset.title);
         $('.indexCaption p span').text(this.dataset.desc);
         $('.indexCaption').slideDown(100, function(){});
-      // }
-
-    }, function(){
-      // $('.indexCaption').slideUp(100, function(){});
     });
 
     $("body").click(function(){
-      console.log('hit');
       $(".index")[0].scrollIntoView({ block: 'start',  behavior: 'smooth' });
     });
-
 
   </script>
 </body>

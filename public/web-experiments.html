@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Experiments</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../css/page.css">
+
+  <style>
+    #doom-holder{
+      width:100%;
+      height:500px;
+      padding:0px;
+    }
+    #geometric-holder{
+      width:100%;
+      height:500px;
+      padding:0px;
+    }
+    #hsb-holder{
+      width:100%;
+      height:500px;
+      padding:0px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <a name="top"></a>
+  <div class="container">
+    <div class="content">
+      <div class="title">
+        <h1><a style="" href="../#index">< &#8962;</a> Web Experiments</h1>
+      </div>
+
+      <div class="full-height">
+        <div style="width: 100%;">
+          <div id="doom-holder">
+            <p style="background-color:black; color:white; position:absolute; margin:0px;">toggle play</p>
+          </div>
+          <figcaption><em>luma / doom (2017) <a href="./web-experiments/doom/index.html">view full</a> <a href="./web-experiments/doom/js/sketch.js">view source</a></em></figcaption>
+        </div>
+      </div>
+
+      <div class="full-height">
+        <div style="width: 45%;">
+          <div id="geometric-holder">
+            <p style="background-color:black; color:white; position:absolute; margin:0px;">toggle play</p>
+          </div>
+          <figcaption><em>geometric study (2017) <a href="./web-experiments/geometric/index.html">view full</a> <a href="./web-experiments/geometric/js/sketch.js">view source</a></em></figcaption>
+        </div>
+        <div style="width: 45%;">
+
+          <div id="hsb-holder">
+            <p style="background-color:black; color:white; position:absolute; margin:0px;">toggle play</p>
+          </div>
+          <figcaption><em>hsb study (2017) <a href="./web-experiments/hsbmoire/index.html">view full</a> <a href="./web-experiments/hsbmoire/js/sketch.js">view source</a></em></figcaption>
+        </div>
+      </div>
+    </div>
+
+    <div class="back2top">
+      <a href="#top">Back to top</a>
+    </div>
+
+  </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="./web-experiments/p5/p5.min.js"></script>
+<script src="./web-experiments/doom/js/sketch.js"></script>
+<script src="./web-experiments/geometric/js/sketch.js"></script>
+<script src="./web-experiments/hsbmoire/js/sketch.js"></script>
+
+<script>
+  geoP5.noLoop();
+  hsbP5.noLoop();
+
+  let geo = false;
+  let hsb = false;
+  let doom = true;
+
+  $("#geometric-holder").click(() => {
+    geo = !geo;
+    if (geo) {
+      geoP5.loop();
+    } else {
+      geoP5.noLoop();
+    }
+  });
+
+  $("#hsb-holder").click(() => {
+    hsb = !hsb;
+    if (hsb) {
+      hsbP5.loop();
+    } else {
+      hsbP5.noLoop();
+    }
+  });
+
+  $("#doom-holder").click(() => {
+    doom = !doom;
+    if (doom) {
+      doomP5.loop();
+    } else {
+      doomP5.noLoop();
+    }
+  });
+</script>
+
+</html>
