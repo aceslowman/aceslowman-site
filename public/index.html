@@ -85,9 +85,11 @@
   <script type="text/JavaScript">
 
     $('.gridContainer a').hover(function(){
+      if(window.innerWidth > 500){
         $('.indexCaption h3 span').text(this.dataset.title);
         $('.indexCaption p span').text(this.dataset.desc);
         $('.indexCaption').slideDown(100, function(){});
+      }
     });
 
     $("body").click(function(){
