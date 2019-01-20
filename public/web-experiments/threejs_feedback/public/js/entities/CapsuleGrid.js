@@ -23,6 +23,9 @@ export default class CylinderGrid extends StandardEntity{
 
     this.scene.add(this.group);
     this.setupGUI();
+
+    this.group.rotation.x = -(Math.PI/4);
+    this.group.rotation.y = -(Math.PI/4);
   }
 
   generateGrid(){

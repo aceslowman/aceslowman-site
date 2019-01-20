@@ -54,14 +54,14 @@ export default class FeedbackManager extends StandardManager{
           tex0: { value: this.interTarget.texture },
           tex1: { value: this.mainTarget.texture },
           feedback: { value: 1.0 },
-          scale: { value: 1.02 },
+          scale: { value: 0.961 },
           vPoint: { value: [0.5,0.5] }
       };
-
+ 
       this.gui.feedback = this.gui.addFolder('Feedback Shader');
 
       this.gui.feedback.add(this.feedbackUniforms.feedback,'value',0,1).name('Amount');
-      this.gui.feedback.add(this.feedbackUniforms.scale,'value',0.8,1.2).name('Scale').step(0.001);
+      this.gui.feedback.add(this.feedbackUniforms.scale,'value',0.961).name('Scale').step(0.001);
       this.gui.feedback.open();
 
       const geometry = new THREE.PlaneBufferGeometry( 2., 2.);
