@@ -74,6 +74,7 @@ h2 {
 .indexCaption {
   pointer-events: none;
   position:sticky;
+  position: -webkit-sticky;
   bottom:30px;
   left: 50%;
   display:none;
