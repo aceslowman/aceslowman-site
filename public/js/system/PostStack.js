@@ -113,18 +113,22 @@ export default class PostStack {
 
     const inputPass  = new THREE.TexturePass(this.intermediateTarget.texture, 1.0);
     const chromaPass = new THREE.ShaderPass(this.shader_chroma, "chroma");
-    const fxaaPass   = new THREE.ShaderPass(THREE.FXAAShader);
+
+    // 9-9-19 disabled fxaa for performance.
+
+    // const fxaaPass   = new THREE.ShaderPass(THREE.FXAAShader);
 
     let dpr = 1;
     if (window.devicePixelRatio !== undefined) {
       dpr = window.devicePixelRatio;
     }
-    fxaaPass.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
-    fxaaPass.renderToScreen = true;
+    // fxaaPass.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
+    // fxaaPass.renderToScreen = true;
+    chromaPass.renderToScreen = true;
 
     this.finalComposer.addPass(inputPass);
     this.finalComposer.addPass(chromaPass);
-    this.finalComposer.addPass(fxaaPass);
+    // this.finalComposer.addPass(fxaaPass);
   }
 
   render(delta){

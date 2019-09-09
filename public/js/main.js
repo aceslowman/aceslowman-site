@@ -54,7 +54,6 @@ const bindEventListeners = () => {
     false
   );
   window.addEventListener('mousemove', onMouseMove, false);
-  // window.addEventListener('click', onClick, false);
 }
 
 const onMouseMove = (e)=>{
@@ -64,10 +63,6 @@ const onMouseMove = (e)=>{
   post.shader_feedback.uniforms.vPoint.value[0] = x;
   post.shader_feedback.uniforms.vPoint.value[1] = y;
 }
-//
-// const onClick = (e)=>{
-//   console.log('hit');
-// }
 
 setup();
 bindEventListeners();
