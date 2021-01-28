@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-78574565-8');
+    </script>
+    <meta charset="utf-8">
+    <title>vortex</title>
+    <style>
+      body{
+        padding:0px;
+        margin:0px;
+      }
+      canvas{
+        display:block;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to see anything!
+    </noscript>
+    <div class="container">
+
+      <!--
+        Not ideal, but CCapture is currently not bundled correctly for NPM.
+        https://github.com/spite/ccapture.js/issues/36
+        https://github.com/spite/ccapture.js/issues/77 (Mine)
+      -->
+      <!-- <script src="js/libs/CCapture.all.min.js"></script> -->
+
+      <script src='js/distr/common.bundle.js'></script> <!-- Only for dev -->
+  		<script src='js/distr/bundle.js'></script>
+    </div>
+  </body>
+</html>

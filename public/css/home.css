@@ -1,0 +1,152 @@
+html{
+    width:100%;
+    height:100%;
+}
+
+canvas{
+    display:block;
+    z-index:-100;
+    position:fixed;
+    top:0px;
+    left:0;
+}
+
+body{
+  padding:0px;
+  margin:0px;
+  width:100%;
+  height:100%;
+  background-color:black;
+  overflow-x:hidden;
+}
+
+h2 {
+  font-size: 2.8em;
+  margin:0px;
+}
+
+.container {
+  top:100%;
+  width:100%;
+  position:relative;
+  align-items: center;
+}
+
+.index {
+  padding:15px;
+  background-color:white;
+  width:100%;
+  height:100%;
+  box-sizing:border-box;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.gridContainer {
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
+}
+
+.gridContainer a {
+  height:100%;
+}
+
+.gridContainer a img {
+  object-fit:cover;
+  width:100%;
+  height:650px;
+}
+
+@media only screen and (min-width: 500px) {
+  .gridContainer a{
+    -webkit-transition: transform .2s;
+    transition: transform .2s;
+  }
+
+  .gridContainer a:hover {
+    transform: scale(1.025);
+  }
+}
+
+.indexCaption {
+  pointer-events: none;
+  position:sticky;
+  position: -webkit-sticky;
+  bottom:30px;
+  left: 50%;
+  display:none;
+  color:white;
+  padding:15px;
+}
+
+.indexCaption h3 {
+  font-size:6.5em;
+  margin:0px;
+}
+
+.indexCaption h3 span, .indexCaption p span {
+  background-color:black;
+}
+
+.indexCaption p {
+  font-style: italic;
+}
+
+.project {
+  background-color:yellow;
+  height:100%;
+  width:100%;
+}
+
+.content {
+  padding: 15px;
+}
+
+.about {
+  color:white;
+  padding:30px;
+  text-align: right;
+}
+.about h2 {
+  background-color:black;
+  display: inline-block;
+}
+.about p span{
+  background-color:black;
+  display: inline-block;
+  font-style:italic;
+}
+
+
+.gridContainer a div{
+  visibility: hidden;
+  color:white;
+  position:absolute;
+}
+
+.gridContainer a div h2 {
+  display:inline-block;
+  background-color:black;
+  text-decoration:none;
+  font-size:3.0em;
+}
+
+.gridContainer a div p {
+  display:inline-block;
+  background-color:black;
+  text-decoration:none;
+  font-style:italic;
+}
+
+/* Small screens */
+@media only screen and (max-width: 500px) {
+  .gridContainer {
+
+  }
+  .gridContainer a div {
+    visibility: visible;
+  }
+}

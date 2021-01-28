@@ -1,0 +1,40 @@
+{
+  "name": "threejs_node",
+  "version": "1.0.0",
+  "description": "modular THREEjs boilerplate, built off of Node, Express, and Webpack",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --config webpack.dev.config.js --mode development --watch",
+    "build": "webpack --config webpack.prod.config.js --mode production --optimize-minimize --watch",
+    "start": "nodemon server.js --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aceslowman/threejs_node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aceslowman/threejs_node/issues"
+  },
+  "homepage": "https://github.com/aceslowman/threejs_node#readme",
+  "dependencies": {
+    "ccapture.js": "github:aceslowman/ccapture.js#npm-fix",
+    "dat.gui": "^0.7.1",
+    "express": "^4.16.2",
+    "express-static-gzip": "^0.3.2",
+    "npm": "^6.5.0",
+    "stats-js": "^1.0.0-alpha1",
+    "three": "^0.90.0",
+    "three.meshline": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "compression-webpack-plugin": "^1.1.10",
+    "webpack": "^4.1.0",
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-cli": "^3.2.1"
+  }
+}

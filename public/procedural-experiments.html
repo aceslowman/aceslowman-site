@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-78574565-8');
+  </script>  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procedural Experiments</title>
+  <link rel="stylesheet" href="../css/page.css">
+</head>
+
+<body>
+  <a name="top"></a>
+  <div class="container">
+    <div class="content">
+      <div class="title">
+        <h1><a style="" href="../#index"><	&#8962;</a> Procedural Experiments</h1>
+      </div>
+
+      <div class="full-height">
+        <div style="text-align: left;width: 80%;">
+          <h2><em>Road Systems</em> 2018 - ongoing</h2>
+          <p>Recently I began working on a procedural toolkit for future works. I am particularly interested in generative cities, so creating road systems seemed like a good place to start. My hope is that this toolset will be useful in future works of my own, and also flexible enough to be useful to others.</p>
+          <p>My primary reference for this system has been <a href="https://graphics.ethz.ch/Downloads/Publications/Papers/2001/p_Par01.pdf">a paper by Parish and Müller</a> (which was also utilized in a great write-up <a href="https://www.tmwhere.com/city_generation.html">here</a>)</p>
+          <p>Work in this project began in OpenFrameworks, but after some point it became clear to me that it was possibly less useful to me on that platform, and I began to port my work over to THREE.js, where I've continued. The system itself can be represented by an undirected graph. It consists of a series of nodes that contain references to all roads it is connected to, which is necessary for traversal as well as building lot generation.</p>
+          <p><strong>Currently</strong> the project is ongoing, with my focus currently on generating buildings and terrain.</p>
+          <ul>
+            <li><a href="https://github.com/aceslowman/ofxProcedural">oF Source Code</a></li>
+            <li><a href="https://github.com/aceslowman/threejs_procedural">Three.js Source Code</a></li>
+          </ul>
+        </div>
+        <div style="width: 45%;">
+            <img width="100%" class="mobiesque" src="../img/procedural/city procedural 3.png" />
+            <figcaption></figcaption>
+        </div>
+        <div style="width: 45%;">
+            <img width="100%" class="mobiesque" src="../img/procedural/city procedural 2.png" />
+            <figcaption></figcaption>
+        </div>
+
+      </div>
+      <div class="full-height">
+        <div style="text-align: left; width:50%;">
+          <h2>Growth Patterns</h2>
+          <p>As the first of my procedural experiments, this project began with handdrawn plants and branches. I was interested in how someone might intuitively draw a branch or plant, and this was my attempt to build a digital system based on those rules.</p>
+          <p>The system begins by generating a single, multisegmented branch. Each segment should tend towards some imagined light source, and be skewed by the direction of the segment that came before it.</p>
+          <p>Once this is finished, the process is repeated on random segments, allowing new, shorter branches to emerge.</p>
+          <p>I intend to continue on this and make it compatible with the procedural city generation tools I am working on.</p>
+          <a href="https://github.com/aceslowman/ofxGrowth">Source Code</a>
+        </div>
+        <div style="flex-shrink: 2;width: 40%;">
+          <video width="100%" style="" autoplay loop>
+              <source src="../img/procedural/growth.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <div class="full-height">
+        <div style="width: 80%;">
+
+            <img width="100%" class="mobiesque" src="../img/procedural/branches.jpg" />
+            <figcaption><em>sample of generated branches</em></figcaption>
+
+        </div>
+
+
+      </div>
+
+      <div class="back2top">
+        <a href="#top">Back to top</a>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
