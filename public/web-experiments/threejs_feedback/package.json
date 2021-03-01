@@ -25,7 +25,7 @@
     "express-static-gzip": "^0.3.2",
     "npm": "^6.5.0",
     "stats-js": "^1.0.0-alpha1",
-    "three": "^0.90.0",
+    "three": "^0.125.0",
     "three.meshline": "^1.0.3"
   },
   "devDependencies": {
