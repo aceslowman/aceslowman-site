@@ -1,115 +1,156 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-78574565-8');
-  </script>
-  <meta charset="utf-8">
-  <title>aceslowman - austin slominski</title>
-  <meta name="description" content="Austin Slominski is an audiovisual artist, focused on live performance, experimentation, and creative applications of software programming.">
-  <meta name="keywords" content="artist, experimental, creative coding, programming, abstract, digital, new media, media art, missoula, denver">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/home.css">
-</head>
-
-<body>
-  <noscript>
-    You need to enable JavaScript to see anything!
-  </noscript>
-  <h1 style="display:none;">aceslowman is austin slominski</h1>
-  <div class="container">
-    <div class="index">
-      <a id="index"></a>
-      <div class="gridContainer">
-
-        <a href="live-visuals.html" data-title="Live Visuals" data-desc="various shows (2015 - ongoing)">
-          <div>
-            <h2>Live Visuals</h2>
-            <p>various shows (2015 - ongoing)</p>
-          </div>
-          <img src="../img/home/newwindow.png" />
-        </a>
-
-        <a href="installations.html" data-title="Installations" data-desc="(2016 - 2017)">
-          <div>
-            <h2>Installations</h2>
-            <p>(2016 - 2017)</p>
-          </div>
-          <img src="../img/home/beginner.png" />
-        </a>
-
-        <a href="video-art.html" data-title="Video Art" data-desc="various works (2014 - ongoing)">
-          <div>
-            <h2>Video Art</h2>
-            <p>various works (2014 - ongoing)</p>
-          </div>
-          <img src="../img/home/cvshred2.png" />
-        </a>
-
-        <a href="procedural-experiments.html" data-title="Procedural Experiments" data-desc="various works (2017 - ongoing)">
-          <div>
-            <h2>Procedural Experiments</h2>
-            <p>various works (2017 - ongoing)</p>
-          </div>
-          <img src="../img/home/procedural_tools.png" />
-        </a>
-
-        <a href="web-experiments.html" data-title="Web Experiments" data-desc="p5 and three.js (2016 - ongoing)">
-          <div>
-            <h2>Web Experiments</h2>
-            <p>p5 and three.js (2016 - ongoing)</p>
-          </div>
-          <img src="../img/home/vortex.png" />
-        </a>
-
-        <a href="vr-experiments.html" data-title="VR Experiments" data-desc="various works (2017 - ongoing)">
-          <div>
-            <h2>VR Experiments</h2>
-            <p>various works (2017 - ongoing)</p>
-          </div>
-          <img src="../img/home/mobiesque.png" />
-        </a>
-
-      </div>
-
-      <div class="indexCaption">
-        <h3><span></span></h3>
-        <p><span></span></p>
-      </div>
-
-    </div>
-    <div class="about">
-      <h2 style="padding-right:10px;">aceslowman is Austin Słominski </h2><h2 style="padding-left: 5px; background-color:white;"> <a  style=" text-decoration:none;"href="https://facebook.com/aceslowman">fb</a> <a style=" text-decoration:none;"href="https://instagram.com/aceslowman">ig</a></h2>
-    </div>
-  </div>
-
-  <script src='js/dist/common.bundle.js'></script> <!-- Only for dev -->
-  <script src='js/dist/bundle.js'></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/JavaScript">
-
-    $('.gridContainer a').hover(function(){
-      if(window.innerWidth > 500){
-        $('.indexCaption h3 span').text(this.dataset.title);
-        // $('.indexCaption p span').text(this.dataset.desc);
-        $('.indexCaption').slideDown(100, function(){});
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-    });
+      gtag("js", new Date());
 
-    $("body").click(function(){
-      $(".index")[0].scrollIntoView({ block: 'start',  behavior: 'smooth' });
-    });
+      gtag("config", "UA-78574565-8");
+    </script>
+    <meta charset="utf-8" />
+    <title>aceslowman - austin slominski</title>
+    <meta
+      name="description"
+      content="Austin Slominski is an audiovisual artist, focused on live performance, experimentation, and creative applications of software programming."
+    />
+    <meta
+      name="keywords"
+      content="artist, experimental, creative coding, programming, abstract, digital, new media, media art, missoula, denver"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
 
-  </script>
+  <body>
+    <noscript>
+      You need to enable JavaScript to see anything!
+    </noscript>
+    <h1 style="display:none;">aceslowman is austin slominski</h1>
+    <div class="container">
+      <div class="index">
+        <a id="index"></a>
+        <div class="gridContainer">
+          <a
+            href="live-visuals.html"
+            data-title="Live Visuals"
+            data-desc="various shows (2015 - ongoing)"
+          >
+            <div>
+              <h2>Live Visuals</h2>
+              <p>various shows (2015 - ongoing)</p>
+            </div>
+            <img src="../img/home/newwindow.png" />
+          </a>
 
-</body>
+          <a
+            href="installations.html"
+            data-title="Installations"
+            data-desc="(2016 - 2017)"
+          >
+            <div>
+              <h2>Installations</h2>
+              <p>(2016 - 2017)</p>
+            </div>
+            <img src="../img/home/beginner.png" />
+          </a>
 
+          <a
+            href="video-art.html"
+            data-title="Video Art"
+            data-desc="various works (2014 - ongoing)"
+          >
+            <div>
+              <h2>Video Art</h2>
+              <p>various works (2014 - ongoing)</p>
+            </div>
+            <img src="../img/home/cvshred2.png" />
+          </a>
+
+          <a
+            href="procedural-experiments.html"
+            data-title="Procedural Experiments"
+            data-desc="various works (2017 - ongoing)"
+          >
+            <div>
+              <h2>Procedural Experiments</h2>
+              <p>various works (2017 - ongoing)</p>
+            </div>
+            <img src="../img/home/procedural_tools.png" />
+          </a>
+
+          <a
+            href="web-experiments.html"
+            data-title="Web Experiments"
+            data-desc="p5 and three.js (2016 - ongoing)"
+          >
+            <div>
+              <h2>Web Experiments</h2>
+              <p>p5 and three.js (2016 - ongoing)</p>
+            </div>
+            <img src="../img/home/vortex.png" />
+          </a>
+
+          <a
+            href="vr-experiments.html"
+            data-title="VR Experiments"
+            data-desc="various works (2017 - ongoing)"
+          >
+            <div>
+              <h2>VR Experiments</h2>
+              <p>various works (2017 - ongoing)</p>
+            </div>
+            <img src="../img/home/mobiesque.png" />
+          </a>
+        </div>
+
+        <div class="indexCaption">
+          <h3><span></span></h3>
+          <p><span></span></p>
+        </div>
+      </div>
+      <div class="about">
+        <h2 style="padding-right:10px;">aceslowman is Austin Słominski</h2>
+        <h2 style="padding-left: 5px; background-color:white;">
+          <a
+            style=" text-decoration:none;"
+            href="https://facebook.com/aceslowman"
+            >fb</a
+          >
+          <a
+            style=" text-decoration:none;"
+            href="https://instagram.com/aceslowman"
+            >ig</a
+          >
+        </h2>
+      </div>
+    </div>
+
+    <script src="js/dist/common.bundle.js"></script>
+    <!-- Only for dev -->
+    <script src="js/dist/bundle.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/JavaScript">
+
+      $('.gridContainer a').hover(function(){
+        if(window.innerWidth > 500){
+          $('.indexCaption h3 span').text(this.dataset.title);
+          $('.indexCaption p span').text(this.dataset.desc);
+          $('.indexCaption').slideDown(100, function(){});
+        }
+      });
+
+      $("body").click(function(){
+        $(".index")[0].scrollIntoView({ block: 'start',  behavior: 'smooth' });
+      });
+    </script>
+  </body>
 </html>
