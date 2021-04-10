@@ -1,74 +1,89 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78574565-8"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+      gtag("config", "UA-78574565-8");
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>camogen</title>
+    <link rel="stylesheet" href="../css/page.css" />
+  </head>
 
-    gtag('config', 'UA-78574565-8');
-  </script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>camogen</title>
-  <link rel="stylesheet" href="../css/page.css">
-</head>
+  <body>
+    <a name="top"></a>
+    <div class="container">
+      <div class="content">
+        <div class="title">
+          <h1><a style="" href="../#index">< &#8962;</a> camogen</h1>
+        </div>
 
-<body>
-  <a name="top"></a>
-  <div class="container">
-    <div class="content">
-      <div class="title">
-        <h1><a style="" href="../#index"><	&#8962;</a> Camogen</h1>
-      </div>
-
-      <div class="full-height">
-        <div style="width: 100%;">
+        <div class="full-height">
+          <div style="width: 100%;">
             <img width="100%" src="../img/camogen/camogen_main.png" />
             <figcaption><em>Camogen (2020-ongoing)</em></figcaption>
+          </div>
+          <div class="flexRow">
+            <div style="text-align: left; width: 60%;">
+              <h2>Camogen</h2>
+              <p>
+                <em
+                  >a live-centric pattern synthesizer built on webgl (work in
+                  progress)</em
+                >
+              </p>
+              <p>
+                Camogen is a visual art environment that allows you to write
+                visual effects, arrange and chain them together using a graph
+                system, and tweak parameters on the fly using an automatically
+                generated interface. Every parameter can be changed by hand or
+                by a motion graph system, allowing you to drive parameters with
+                oscillators, MIDI controllers, and more.
+              </p>
+              <p>
+                I want Camogen to work for both programmers and non-programmers.
+                It automatically generates an interface from shader code that
+                can be tweaked, customized, and annotated, and each effect can
+                be shared, remixed, and collected.
+              </p>
+              <p>
+                camogen can be found at <a href="https://camogen.glitch.me">camogen.glitch.me</a>
+              </p>
+              <p>
+                and it's code is available at <a href="https://github.com/aceslowman/camogen">https://github.com/aceslowman/camogen</a>
+              </p>
+            </div>
+            <div style="width: 65%; height:100%;">
+              <img src="../img/camogen/camogen_sample.png" />
+            </div>
+          </div>
+
+          <div style="width: 100%;">
+            <img src="../img/camogen/camogen_sample_editor.png" />
+          </div>
         </div>
-        <div style="text-align: left; width: 40%;">
-          <h2>Camogen</h2>
-          <p><em>a live-centric pattern synthesizer built on webgl (work in progress)</em></p>
-          <p>Camogen is a visual art environment that allows you to write visual effects, arrange and chain them together using a graph system, and tweak parameters on the fly using an automatically generated interface. Every parameter can be changed by hand or by a motion graph system, allowing you to drive parameters with oscillators, MIDI controllers, and more.
-          </p><p>
-I want Camogen to work for both programmers and non-programmers. It automatically generates an interface from shader code that can be tweaked, customized, and annotated, and each effect can be shared, remixed, and collected.</p>
-        </div>
-        <div style="width: 35%;">
-          <video width="100%" style="" autoplay loop muted controls>
-              <source src="../img/beginner/beginner.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
-        </div>
-        <div style="width: 100%;">
-            <video width="100%" style="" autoplay loop muted controls>
-                <source src="../img/beginner/beginnersample.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+          
+          <div class="full-height">
+            <h2>
+              Gallery
+            </h2>
+          </div>
+
+        <div class="back2top">
+          <a href="#top">Back to top</a>
         </div>
       </div>
-
-      <div class="full-height">
-        <div style="width: 60%;">
-          <iframe src="https://player.vimeo.com/video/157043723" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            <figcaption><em>a sample from A Vulgar Language (2016)</em></figcaption>
-        </div>
-        <div style="text-align: left; width: 30%;">
-          <h2>A Vulgar Language</h2>
-          <p><em>installation, exhibited at Gecko Designs in Missoula, MT</em></p>
-          <p>A Vulgar Language was an experiment in generative language, vocal synthesis, and digital image manipulation. The project was built entirely in MaxMSP / Jitter. The vocal synth is modelled after <a href="http://www.atiam.ircam.fr/wp-content/uploads/2011/12/AES_JAES_1978_Kaegi_VOSIM.pdf">VOSIM synthesis</a>, which models the human voice by using a repeating burst of signal, which is then passed through several filters, representing physical volumes in the vocal tract. The vocal synth is fed by a simple generative language patch, which strips word segments from Andre Breton's <em>Surrealist Manifesto</em>, and reassembling them at random.</p>
-        </div>
-      </div>
-
-      <div class="back2top">
-        <a href="#top">Back to top</a>
-      </div>
-
     </div>
-  </div>
-</body>
-
+  </body>
 </html>
