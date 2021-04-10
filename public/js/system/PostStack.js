@@ -102,17 +102,17 @@ export default class PostStack {
     this.finalComposer = new THREE.EffectComposer(this.manager.renderer, this.finalTarget);
     this.finalComposer.setSize(this.manager.width, this.manager.height);
 
-    // this.shader_chroma = new THREE.ShaderMaterial({
-    //   uniforms: {
-    //     power: { value: 0.3 },
-    //     zoom: { value: 1.0 }
-    //   },
-    //   vertexShader: barrelBlurChroma.vert,
-    //   fragmentShader: barrelBlurChroma.frag
-    // })
+    this.shader_chroma = new THREE.ShaderMaterial({
+      uniforms: {
+        power: { value: 0.0 },
+        zoom: { value: 1.0 }
+      },
+      vertexShader: barrelBlurChroma.vert,
+      fragmentShader: barrelBlurChroma.frag
+    })
 
     const inputPass  = new THREE.TexturePass(this.intermediateTarget.texture, 1.0);
-    // const chromaPass = new THREE.ShaderPass(this.shader_chroma, "chroma");
+    const chromaPass = new THREE.ShaderPass(this.shader_chroma, "chroma");
 
     // 9-9-19 disabled fxaa for performance.
 
@@ -124,10 +124,10 @@ export default class PostStack {
     }
     // fxaaPass.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
     // fxaaPass.renderToScreen = true;
-    // chromaPass.renderToScreen = true;
+    chromaPass.renderToScreen = true;
 
     this.finalComposer.addPass(inputPass);
-    // this.finalComposer.addPass(chromaPass);
+    this.finalComposer.addPass(chromaPass);
     // this.finalComposer.addPass(fxaaPass);
   }
 

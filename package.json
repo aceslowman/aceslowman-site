@@ -1,7 +1,7 @@
 {
-  "name": "threejs_node",
+  "name": "aceslowman",
   "version": "1.0.0",
-  "description": "modular THREEjs boilerplate, built off of Node, Express, and Webpack",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config webpack.dev.config.js --mode development --watch",
