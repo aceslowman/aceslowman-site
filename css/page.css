@@ -55,6 +55,11 @@ img {
   padding: 15px;
 }
 
+.flexColumn {
+  display: flex;
+  flex-flow: column;
+}
+
 .back2top {
   width: 100%;
   text-align: center;
