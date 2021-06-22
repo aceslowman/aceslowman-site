@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Experiments</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../css/page.css" />
 
     <style>
@@ -46,8 +45,8 @@
             <figcaption>
               <em
                 >luma / doom (2017)
-                <a href="./web-experiments/dooom/index.html">view full</a>
-                <a href="./web-experiments/dooom/js/sketch.js"
+                <a href="../web-experiments/dooom/index.html">view full</a>
+                <a href="../web-experiments/dooom/js/sketch.js"
                   >view source</a
                 ></em
               >
@@ -67,8 +66,8 @@
             <figcaption>
               <em
                 >geometric study (2017)
-                <a href="./web-experiments/geometric/index.html">view full</a>
-                <a href="./web-experiments/geometric/js/sketch.js"
+                <a href="../web-experiments/geometric/index.html">view full</a>
+                <a href="../web-experiments/geometric/js/sketch.js"
                   >view source</a
                 ></em
               >
@@ -102,7 +101,10 @@
       <div class="full-height">
         <div style="width: 100%;">
           <a href="../web-experiments/threejs_feedback/public/index.html">
-            <img width="100%" src="../web_experiments/weightwide.png" />
+            <img
+              width="100%"
+              src="https://cdn.glitch.com/3b6640e7-6c63-497b-8326-af6de2bba631%2Fweightwide.png?v=1624339087421"
+            />
           </a>
           <figcaption>
             <em
@@ -121,10 +123,10 @@
     </div>
   </body>
 
-  <script type="text/javascript" src="./web-experiments/p5/p5.min.js"></script>
-  <script src="./web-experiments/dooom/js/sketch.js"></script>
-  <script src="./web-experiments/geometric/js/sketch.js"></script>
-  <script src="./web-experiments/hsbmoire/js/sketch.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
+  <script src="../web-experiments/dooom/js/sketch.js"></script>
+  <script src="../web-experiments/geometric/js/sketch.js"></script>
+  <script src="../web-experiments/hsbmoire/js/sketch.js"></script>
 
   <script>
     geoP5.noLoop();
@@ -134,16 +136,18 @@
     let hsb = false;
     let doom = true;
 
-    $("#geometric-holder").click(() => {
-      geo = !geo;
-      if (geo) {
-        geoP5.loop();
-      } else {
-        geoP5.noLoop();
-      }
-    });
+    document
+      .getElementById("geometric-holder")
+      .addEventListener("click", () => {
+        geo = !geo;
+        if (geo) {
+          geoP5.loop();
+        } else {
+          geoP5.noLoop();
+        }
+      });
 
-    $("#hsb-holder").click(() => {
+    document.getElementById("hsb-holder").addEventListener("click", () => {
       hsb = !hsb;
       if (hsb) {
         hsbP5.loop();
@@ -152,7 +156,7 @@
       }
     });
 
-    $("#doom-holder").click(() => {
+    document.getElementById("doom-holder").addEventListener("click", () => {
       doom = !doom;
       if (doom) {
         doomP5.loop();
